@@ -1,3 +1,6 @@
+<p align="center">
+<img src="assets/icon.png" alt="Logo">
+
 # Wannabe Edgerunner - Humanity Recovery
 
 Mod extending the [Wannabe Edgerunner](https://www.nexusmods.com/cyberpunk2077/mods/5646) mod, to recover humanity over time.
