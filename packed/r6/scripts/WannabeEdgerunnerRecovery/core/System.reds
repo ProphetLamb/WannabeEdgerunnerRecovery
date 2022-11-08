@@ -36,22 +36,26 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     this.StopRecoverHumanity();
   }
 
-  // The settings have changed
   public func OnModSettingsChange() -> Void {
     LTrace("OnModSettingsChange");
     this.RefreshConfig();
   }
 
-  // The game-save is loaded
   private final func OnPlayerAttach(request: ref<PlayerAttachRequest>) -> Void {
     LTrace("OnPlayerAttach");
-    this.LoadPlayer(request.owner);
+    this.LoadPlayer(request.owner.GetGame());
+    this.RefreshConfig();
     this.StopRecoverHumanity();
     this.StartRecoverHumanity();
   }
 
+  private final func OnPlayerDetach(request: ref<PlayerDetachRequest>) -> Void {
+    LTrace("OnPlayerDetach");
+    this.StopRecoverHumanity();
+  }
+
   // The cycle for recovering humanity has elapsed
-  public final func OnLaunchCycledRecoverHumanityRequest(request: ref<LaunchCycledRecoverHumanityRequest>) -> Void {
+  private final func OnLaunchCycledRecoverHumanityRequest(request: ref<LaunchCycledRecoverHumanityRequest>) -> Void {
     LTrace("OnLaunchCycledRecoverHumanityRequest");
     this.RecoverHumanity();
   }
@@ -64,16 +68,14 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     return system;
   }
 
-  public func LoadPlayer(owner: ref<GameObject>) {
-    LTrace("LoadPlayer");
-    let game = owner.GetGame();
-    this.player = GameInstance.GetPlayerSystem(game).GetLocalPlayerMainGameObject() as PlayerPuppet;
+  private func LoadPlayer(gameInstance: GameInstance) {
+    this.player = GameInstance.GetPlayerSystem(gameInstance).GetLocalPlayerMainGameObject() as PlayerPuppet;
     LErrorIfUndef(this.player, n"PlayerPuppet");
-    this.delaySystem = GameInstance.GetDelaySystem(game);
+    this.delaySystem = GameInstance.GetDelaySystem(gameInstance);
     LErrorIfUndef(this.delaySystem, n"DelaySystem");
-    this.timeSystem = GameInstance.GetTimeSystem(game);
+    this.timeSystem = GameInstance.GetTimeSystem(gameInstance);
     LErrorIfUndef(this.timeSystem, n"TimeSystem");
-    this.edgerunningSystem = EdgerunningSystem.GetInstance(game);
+    this.edgerunningSystem = EdgerunningSystem.GetInstance(gameInstance);
     LErrorIfUndef(this.edgerunningSystem, n"EdgerunningSystem");
   }
 
@@ -102,13 +104,16 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   // Core logic: Recover humanity
   // ------------------------------------------
 
+  public func IsRecoveringHumanity() -> Bool {
+    let invalidDelayId: DelayID;
+    return this.recoverHumanityDelayId != invalidDelayId;
+  }
+
   public func StartRecoverHumanity() {
-    LTrace("StartRecoverHumanity");
     this.RecoverHumanity();
   }
 
   public func StopRecoverHumanity() {
-    LTrace("StopRecoverHumanity");
     let invalidDelayId: DelayID;
     // Chceck if DelayID was invalid
     if this.recoverHumanityDelayId != invalidDelayId {
@@ -121,8 +126,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   /// Recovers humanity according to the equipped Cyberware, and the time elapsed, since the last recovery
   /// Schedules next recovery.
   /// Updates `currentHumanityDamage`, `this.recoveryRem`, `this.recoveryTsSec`
-  public func RecoverHumanity() {
-    LTrace("RecoverHumanity");
+  private func RecoverHumanity() {
     // Schedule next recovery
     this.ScheduleRecoverHumanity();
     // Calculate the recovery from the current period
@@ -142,7 +146,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   private func RecoverHumanityCalcPeriodInc() -> Float {
     // Elapsed fraction of a day
     // EngineTime is the simulated time, not the real time
-    let tsNowSec = EngineTime.ToFloat(this.timeSystem.GetSimTime());
+    let tsNowSec = Cast<Float>(GameTime.GetSeconds(this.timeSystem.GetGameTime()));
     let tsDeltaSec = tsNowSec - this.recoveryTsSec;
     let dayFrac = tsDeltaSec / 86400.0;
     LDebug(s"Computing humanity increment for \(tsDeltaSec)s, in period \(this.recoveryTsSec)..\(tsNowSec)s");
