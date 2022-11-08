@@ -22,21 +22,21 @@
               "$type": "localizationPersistenceOnScreenEntry",
               "femaleVariant": "Humanity",
               "maleVariant": "",
-              "primaryKey": "0",
+              "primaryKey": 1535368821,
               "secondaryKey": "Gameplay-Devices-Interactions-Humanity"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
               "femaleVariant": "Recovery-Rate",
               "maleVariant": "",
-              "primaryKey": "0",
+              "primaryKey": -825586235,
               "secondaryKey": "Mod-Edg-Humanity-Recovery-Amount"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
               "femaleVariant": "The amount of humanity recovered per day, if no Cyberware is equipped. Equipped cyberware reduces the recovery-rate proportionally to the number of slots filled. So that no humanity is recovered, if all slots are filled.",
               "maleVariant": "",
-              "primaryKey": "0",
+              "primaryKey": 1343555316,
               "secondaryKey": "Mod-Edg-Humanity-Recovery-Amount-Desc"
             }
           ]
