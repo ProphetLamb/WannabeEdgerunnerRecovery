@@ -1,5 +1,7 @@
+# WolvenKit importable files
 archive/
-packed/mods/
-/.zip
+# WolvenKit build files
+packed/archive
+# WolvenKit pack files
 *log.xml
 *.zip
