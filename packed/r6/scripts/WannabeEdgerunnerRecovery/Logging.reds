@@ -25,35 +25,35 @@ public static func CombinedLogLevel() -> Int32 { return 31; }
 /// Logs a debug message useful for validating the state during development, but otherwise not of import.
 public static func LDebug(const str: script_ref<String>) -> Void {
   if (CombinedLogLevel() & 16) != 0 {
-    LogChannel(n"DEBUG", "[WER][DEBUG] " + str);
+    LogChannel(n"DEBUG", "[DEBUG][WER] " + str);
   };
 }
 
 /// Logs events, requests and similar other method calls.
 public static func LTrace(const str: script_ref<String>) -> Void {
   if (CombinedLogLevel() & 8) != 0 {
-    LogChannel(n"DEBUG", "[WER][TRACE] " + str);
+    LogChannel(n"DEBUG", "[TRACE][WER] " + str);
   };
 }
 
 /// Logs a message that could be important for the user.
 public static func LInfo(const str: script_ref<String>) -> Void {
   if (CombinedLogLevel() & 4) != 0 {
-    LogChannel(n"DEBUG", "[WER][INFO ] " + str);
+    LogChannel(n"DEBUG", "[INFO ][WER] " + str);
   };
 }
 
 /// Logs a warning, a unexpected state, that can be recovered without sideeffects.
 public static func LWarn(const str: script_ref<String>) -> Void {
   if (CombinedLogLevel() & 2) != 0 {
-    LogChannel(n"DEBUG", "[WER][WARN ] " + str);
+    LogChannel(n"DEBUG", "[WARN ][WER] " + str);
   };
 }
 
 /// Logs an error, a unexpected state, that cannot be recovered without sideeffects.
 public static func LError(const str: script_ref<String>) -> Void {
   if (CombinedLogLevel() & 1) != 0 {
-    LogChannel(n"DEBUG", "[WER][ERROR] " + str);
+    LogChannel(n"DEBUG", "[ERROR][WER] " + str);
   };
 }
 
