@@ -1,5 +1,0 @@
-localization:
-  onscreens:
-    en-us: base\localization\de-de\onscreens\EdgerunningRecoverySystem.json
-    de-de: base\localization\en-us\onscreens\EdgerunningRecoverySystem.json
-    fr-fr: base\localization\fr-fr\onscreens\EdgerunningRecoverySystem.json
