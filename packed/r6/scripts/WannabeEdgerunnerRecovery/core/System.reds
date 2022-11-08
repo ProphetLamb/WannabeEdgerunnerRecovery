@@ -141,7 +141,8 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   /// Updates `this.recoveryTsSec`
   private func RecoverHumanityCalcPeriodInc() -> Float {
     // Elapsed fraction of a day
-    let tsNowSec = this.timeSystem.GetGameTimeStamp();
+    // EngineTime is the simulated time, not the real time
+    let tsNowSec = EngineTime.ToFloat(this.timeSystem.GetSimTime());
     let tsDeltaSec = tsNowSec - this.recoveryTsSec;
     let dayFrac = tsDeltaSec / 86400.0;
     LDebug(s"Computing humanity increment for \(tsDeltaSec)s, in period \(this.recoveryTsSec)..\(tsNowSec)s");
