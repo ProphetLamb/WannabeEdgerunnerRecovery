@@ -10,6 +10,7 @@ DEPLOY_DIR = D:\Program Files\Steam\steamapps\common\Cyberpunk 2077
 BUILD_SCRIPTS_DIR = .\build\bin\r6\scripts\$(PRODUCT)
 BUILD_TWEAKS_DIR = .\build\bin\r6\tweaks\$(PRODUCT)
 BUILD_ARCHIVE_DIR = .\build\bin\archive\pc\mod
+COMPRESS_ARCHIVE_DIR = .\build\obj\$(PRODUCT)
 
 DEPLOY_SCRIPTS_DIR = $(DEPLOY_DIR)\r6\scripts\$(PRODUCT)
 DEPLOY_TWEAKS_DIR = $(DEPLOY_DIR)\r6\tweaks\$(PRODUCT)
@@ -42,13 +43,21 @@ build-archive: .\archive\*
 	:: ----------------------------------------
 	:: Build "$(BUILD_ARCHIVE_DIR)"
 	:: ----------------------------------------
-	MKDIR ".\build\obj\$(PRODUCT)\"
-	WolvenKit.CLI.exe cr2w .\archive\ -o .\build\obj\$(PRODUCT)\ -d
+	MKDIR "$(COMPRESS_ARCHIVE_DIR)\"
+	WolvenKit.CLI.exe cr2w .\archive\ -o $(COMPRESS_ARCHIVE_DIR)\ -d
 
 	MKDIR "$(BUILD_ARCHIVE_DIR)\"
-	COPY ".\archive\$(PRODUCT).yml" "$(BUILD_ARCHIVE_DIR)\$(PRODUCT).archive.xl"
+	COPY ".\archive\manifest.yml" "$(BUILD_ARCHIVE_DIR)\$(PRODUCT).archive.xl"
 
-	WolvenKit.CLI.exe pack .\build\obj\$(PRODUCT)\ -o $(BUILD_ARCHIVE_DIR)
+	WolvenKit.CLI.exe pack $(COMPRESS_ARCHIVE_DIR)\ -o $(BUILD_ARCHIVE_DIR)
+
+# Extracts archives
+extract-archive: $(BUILD_ARCHIVE_DIR)
+	:: ----------------------------------------
+	:: Deploy "$(BUILD_ARCHIVE_DIR)" to "$(COMPRESS_ARCHIVE_DIR)"
+	:: ----------------------------------------
+	RMDIR /S /Q "$(COMPRESS_ARCHIVE_DIR)" || CMD /d/c
+	WolvenKit.CLI.exe extract $(BUILD_ARCHIVE_DIR)\ -o $(COMPRESS_ARCHIVE_DIR)
 
 # Deploy the mod to the game
 deploy: deploy-scripts deploy-tweaks deploy-archive
