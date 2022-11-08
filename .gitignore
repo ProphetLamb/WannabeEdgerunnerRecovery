@@ -2,3 +2,4 @@ archive/
 packed/mods/
 /.zip
 *log.xml
+*.zip
