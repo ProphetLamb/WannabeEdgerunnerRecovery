@@ -3,9 +3,7 @@
     "WolvenKitVersion": "8.7.1-nightly.2022-11-08",
     "WKitJsonVersion": "0.0.3",
     "GameVersion": 1600,
-    "ExportedDateTime": "2022-11-08T19:31:58.4574587Z",
-    "DataType": "CR2W",
-    "ArchiveFileName": ".\\source\\archive\\base\\localization\\de-de\\WannabeEdgerunnerRecovery.json"
+    "DataType": "CR2W"
   },
   "Data": {
     "Version": 195,
