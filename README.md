@@ -11,7 +11,16 @@ Humanity recovery rate is calculated as
 $a*(\frac{c_{empty}}{c_{filled}})*t^{-1}$ where $a$ is the recovery amount, $c$ is the player Cyberware, and $t$ is the conversion from a day in-game to real time (1d in-game equals 3h time by default).
 
 ### TODO
-- [x] Add localizations
+- [ ] Fix bug where regeneration occurs on the game start screen, after load, before session start.
+- [ ] Add ru-ru local
+- [ ] Add cz-cz local
+- [ ] Add it-it local
+- [ ] Add jp-jp local
+- [ ] Add pl-pl local
+- [ ] Add pt-br local
+- [ ] Add zh-cn local
+- [ ] Add zh-tw local
+- [ ] Add es-es local
 
 ## How to build
 
