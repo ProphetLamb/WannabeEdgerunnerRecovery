@@ -1,7 +1,7 @@
 # WolvenKit importable files
 archive/
 # WolvenKit build files
-packed/archive
+packed/**/*.archive
 # WolvenKit pack files
 *log.xml
 *.zip
