@@ -179,7 +179,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
 
   /// Registers a `LaunchCycledRecoverHumanityRequest`, executed after a period of time passed
   private func ScheduleRecoverHumanity() {
-    let delaySec = 10.0;
+    let delaySec = 66.0;
     LDebug(s"Scheduled next humanity recovery in \(delaySec)s");
     this.recoverHumanityDelayId = this.delaySystem.DelayScriptableSystemRequest(this.GetClassName(), new LaunchCycledRecoverHumanityRequest(), delaySec);
   }
