@@ -1,0 +1,45 @@
+{
+  "Header": {
+    "WolvenKitVersion": "8.7.1-nightly.2022-11-08",
+    "WKitJsonVersion": "0.0.3",
+    "GameVersion": 1600,
+    "ExportedDateTime": "2022-11-08T19:31:58.4574587Z",
+    "DataType": "CR2W",
+    "ArchiveFileName": ".\\source\\archive\\base\\localization\\fr-fr\\WannabeEdgerunnerRecovery.json"
+  },
+  "Data": {
+    "Version": 195,
+    "BuildVersion": 0,
+    "RootChunk": {
+      "$type": "JsonResource",
+      "cookingPlatform": "PLATFORM_PC",
+      "root": {
+        "HandleId": "0",
+        "Data": {
+          "$type": "localizationPersistenceOnScreenEntries",
+          "entries": [
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Humanité",
+              "maleVariant": "",
+              "secondaryKey": "Gameplay-Devices-Interactions-Humanity"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Taux de récupération",
+              "maleVariant": "",
+              "secondaryKey": "Mod-Edg-Humanity-Recovery-Amount"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "La quantité d'humanité récupérée par jour, si aucun Cyberware n'est équipé. Un Cyberware équipé réduit le taux de récupération proportionnellement au nombre de d'emplacement d'inventaire remplis. De sorte qu'aucune humanité n'est récupérée, si tous les emplacements sont remplis.",
+              "maleVariant": "",
+              "secondaryKey": "Mod-Edg-Humanity-Recovery-Amount-Desc"
+            }
+          ]
+        }
+      }
+    },
+    "EmbeddedFiles": []
+  }
+}
