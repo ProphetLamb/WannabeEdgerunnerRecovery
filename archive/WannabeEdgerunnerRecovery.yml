@@ -1,0 +1,6 @@
+factories:
+localization:
+  onscreens:
+    en-us: WannabeEdgerunnerRecovery\localization\en-us.json
+    de-de: WannabeEdgerunnerRecovery\localization\de-de.json
+    de-de: WannabeEdgerunnerRecovery\localization\fr-fr.json
