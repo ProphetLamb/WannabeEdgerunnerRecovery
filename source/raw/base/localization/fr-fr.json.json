@@ -18,24 +18,17 @@
           "entries": [
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Humanité",
-              "maleVariant": "",
-              "primaryKey": 0,
-              "secondaryKey": "Gameplay-Devices-Interactions-Humanity"
-            },
-            {
-              "$type": "localizationPersistenceOnScreenEntry",
               "femaleVariant": "Taux de récupération",
               "maleVariant": "",
               "primaryKey": 0,
-              "secondaryKey": "Mod-Edg-Humanity-Recovery-Amount"
+              "secondaryKey": "Mod-Edg-Humanity-Recovery"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
               "femaleVariant": "La quantité d'humanité récupérée par jour, si aucun Cyberware n'est équipé. Un Cyberware équipé réduit le taux de récupération proportionnellement au nombre de d'emplacement d'inventaire remplis. De sorte qu'aucune humanité n'est récupérée, si tous les emplacements sont remplis.",
               "maleVariant": "",
               "primaryKey": 0,
-              "secondaryKey": "Mod-Edg-Humanity-Recovery-Amount-Desc"
+              "secondaryKey": "Mod-Edg-Humanity-Recovery-Desc"
             }
           ]
         }
