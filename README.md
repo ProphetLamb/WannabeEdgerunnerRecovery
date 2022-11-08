@@ -11,6 +11,10 @@ Humanity recovery rate is calculated as
 $a*(\frac{c_{empty}}{c_{filled}})*t^{-1}$ where $a$ is the recovery amount, $c$ is the player Cyberware, and $t$ is the conversion from a day in-game to real time (1d in-game equals 3h time by default).
 
 ### TODO
-- [ ] Add localization for `Gameplay-Devices-Interactions-Humanity`
-- [ ] Add localization for `Mod-Edg-Humanity-Recovery-Amount`
-- [ ] Add localization for `Mod-Edg-Humanity-Recovery-Amount-Desc`
+- [x] Add localizations
+
+## How to build
+
+- Open .cpmodproj in WolvenKin
+- MouseR on `raw`, then MouseL on "Convert from JSON"
+- "Pack as REDmod" or "Install as REDmod" in toolbar
