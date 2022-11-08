@@ -5,7 +5,7 @@ Extends the [Wannabe Edgerunner](https://www.nexusmods.com/cyberpunk2077/mods/56
 Adds a setting specifiying the humanity recovery rate per day.
 ![Showcase: Settings](https://user-images.githubusercontent.com/19748542/200698305-f62bf78b-7ed4-42e4-816c-546dff08e8b8.png)
 
-Over time humanity penelties inflicted due to murder slowly regenerates.
+Over time, humanity penalties inflicted due to murder slowly regenerates.
 
 ![Showcase: Humanity](https://user-images.githubusercontent.com/19748542/200698707-8de548ec-3c52-48be-8ac0-5c7eb0e22ea6.png)
 
