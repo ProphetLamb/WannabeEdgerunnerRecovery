@@ -11,8 +11,8 @@ BUILD_SCRIPTS_DIR = .\build\bin\r6\scripts\$(PRODUCT)
 BUILD_TWEAKS_DIR = .\build\bin\r6\tweaks\$(PRODUCT)
 BUILD_ARCHIVE_DIR = .\build\bin\archive\pc\mod
 
-DEPLOY_SCRIPTS_DIR = $(DEPLOY_DIR)\bin\r6\scripts
-DEPLOY_TWEAKS_DIR = $(DEPLOY_DIR)\bin\r6\tweaks
+DEPLOY_SCRIPTS_DIR = $(DEPLOY_DIR)\r6\scripts\$(PRODUCT)
+DEPLOY_TWEAKS_DIR = $(DEPLOY_DIR)\r6\tweaks\$(PRODUCT)
 DEPLOY_ARCHIVE_DIR = $(DEPLOY_DIR)\archive\pc\mod
 
 # ----------------------------------------
@@ -25,14 +25,23 @@ all: clean build
 build: build-scripts build-tweaks build-archive
 
 build-scripts: .\scripts\*
+	:: ----------------------------------------
+	:: Build "$(BUILD_SCRIPTS_DIR)"
+	:: ----------------------------------------
 	MKDIR "$(BUILD_SCRIPTS_DIR)"
-	COPY ".\scripts\" "$(BUILD_SCRIPTS_DIR)\" || CMD /d/c
+	XCOPY ".\scripts\" "$(BUILD_SCRIPTS_DIR)\" /S /Q
 
 build-tweaks: .\tweaks\*
+	:: ----------------------------------------
+	:: Build "$(BUILD_TWEAKS_DIR)"
+	:: ----------------------------------------
   MKDIR "$(BUILD_TWEAKS_DIR)\"
-	COPY ".\tweaks\" "$(BUILD_TWEAKS_DIR)\" || CMD /d/c
+	XCOPY ".\tweaks\" "$(BUILD_TWEAKS_DIR)\" /S /Q
 
 build-archive: .\archive\*
+	:: ----------------------------------------
+	:: Build "$(BUILD_ARCHIVE_DIR)"
+	:: ----------------------------------------
 	MKDIR ".\build\obj\$(PRODUCT)\"
 	WolvenKit.CLI.exe cr2w .\archive\ -o .\build\obj\$(PRODUCT)\ -d
 
@@ -45,18 +54,27 @@ build-archive: .\archive\*
 deploy: deploy-scripts deploy-tweaks deploy-archive
 
 deploy-scripts: build-scripts
-	RMDIR /S /Q "$(DEPLOY_DIR)\r6\scripts\$(PRODUCT)" || CMD /d/c
-  MKDIR "$(DEPLOY_DIR)\r6\scripts\$(PRODUCT)"
-	COPY "$(BUILD_SCRIPTS_DIR)" "$(DEPLOY_SCRIPTS_DIR(\$(PRODUCT)" || CMD /d/c
+	:: ----------------------------------------
+	:: Deploy "$(BUILD_SCRIPTS_DIR)" to "$(DEPLOY_SCRIPTS_DIR)"
+	:: ----------------------------------------
+	RMDIR /S /Q "$(DEPLOY_SCRIPTS_DIR)" || CMD /d/c
+  MKDIR "$(DEPLOY_SCRIPTS_DIR)" || CMD /d/c
+	XCOPY "$(BUILD_SCRIPTS_DIR)" "$(DEPLOY_SCRIPTS_DIR)" /S /Q
 
 deploy-tweaks: build-tweaks
-	RMDIR /S /Q "$(DEPLOY_DIR)\r6\scripts\$(PRODUCT)" || CMD /d/c
-  MKDIR "$(DEPLOY_DIR)\r6\tweaks\$(PRODUCT)"
-	COPY "$(BUILD_TWEAKS_DIR)" "$(DEPLOY_TWEAKS_DIR)\$(PRODUCT)" || CMD /d/c
+	:: ----------------------------------------
+	:: Deploy "$(BUILD_TWEAKS_DIR)" to "$(DEPLOY_TWEAKS_DIR)"
+	:: ----------------------------------------
+	RMDIR /S /Q "$(DEPLOY_TWEAKS_DIR)" || CMD /d/c
+  MKDIR "$(DEPLOY_TWEAKS_DIR)" || CMD /d/c
+	XCOPY "$(BUILD_TWEAKS_DIR)" "$(DEPLOY_TWEAKS_DIR)" /S /Q
 
 deploy-archive: build-archive
-	COPY /Y /B $(BUILD_ARCHIVE_DIR)\$(PRODUCT).archive $(DEPLOY_ARCHIVE_DIR)\$(PRODUCT).archive
-	COPY /Y /B $(BUILD_ARCHIVE_DIR)\$(PRODUCT).archive.xl $(DEPLOY_ARCHIVE_DIR)\$(PRODUCT).archive.xl
+	:: ----------------------------------------
+	:: Deploy "$(BUILD_ARCHIVE_DIR)" to "$(DEPLOY_ARCHIVE_DIR)"
+	:: ----------------------------------------
+	COPY /Y /B "$(BUILD_ARCHIVE_DIR)\$(PRODUCT).archive" "$(DEPLOY_ARCHIVE_DIR)\$(PRODUCT).archive"
+	COPY /Y /B "$(BUILD_ARCHIVE_DIR)\$(PRODUCT).archive.xl" "$(DEPLOY_ARCHIVE_DIR)\$(PRODUCT).archive.xl"
 
 # Removes all build files
 clean:
