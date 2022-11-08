@@ -1,6 +1,13 @@
 # Wannabe Edgerunner - Humanity Recovery
 
-Mod extending the [Wannabe Edgerunner](https://www.nexusmods.com/cyberpunk2077/mods/5646) mod, to recover humanity over time.
+Extends the [Wannabe Edgerunner](https://www.nexusmods.com/cyberpunk2077/mods/5646) mod, to recover humanity over time.
+
+Adds a setting specifiying the humanity recovery rate per day.
+![Showcase: Settings](https://user-images.githubusercontent.com/19748542/200698305-f62bf78b-7ed4-42e4-816c-546dff08e8b8.png)
+
+Over time humanity penelties inflicted due to murder slowly regenerates.
+
+![Showcase: Humanity](https://user-images.githubusercontent.com/19748542/200698707-8de548ec-3c52-48be-8ac0-5c7eb0e22ea6.png)
 
 ## Implementation details
 
@@ -12,6 +19,7 @@ $a*(\frac{c_{empty}}{c_{filled}})*t^{-1}$ where $a$ is the recovery amount, $c$ 
 
 ### TODO
 - [ ] Fix bug where regeneration occurs on the game start screen, after load, before session start.
+- [ ] Prevent humanity regeneration during combat.
 - [ ] Add ru-ru local
 - [ ] Add cz-cz local
 - [ ] Add it-it local
