@@ -28,7 +28,7 @@
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Die täglich wiederhergestellte Menschlichkeit, insofern keine Cyberware installiert ist. Installierte Cyberware reduziert die Wiederherstellungsrate proportional zu der Anzahl und gefüllten Slots. Sodass keine Menschlichkeit wiederhergestellt wird, falls alle Slots gefüllt sind.",
+              "femaleVariant": "Die täglich wiederhergestellte Menschlichkeit, insofern keine Cyberware installiert ist. Installierte Cyberware reduziert die Wiederherstellungsrate proportional zu der Anzahl an gefüllten Slots. Sodass keine Menschlichkeit wiederhergestellt wird, falls alle Slots gefüllt sind.",
               "secondaryKey": "Mod-Edg-Humanity-Recovery-Amount-Desc"
             }
           ]
