@@ -10,31 +10,38 @@ Compatible with [url=https://next.nexusmods.com/cyberpunk2077/collections/iszwwe
 [size=5]Wannabe Edgerunner - Humanity Recovery[/size]
 
 Extends the [url=https://www.nexusmods.com/cyberpunk2077/mods/5646]Wannabe Edgerunner[/url] mod, to recover humanity over time.
-
-[size=4]Features[/size]
-
-[list]
-[*] Adds a setting specifying the amount of humanity recovered per day, if no Cyberware is equipped. Equipped cyberware reduces the recovery-rate proportionally to the number of slots filled. So that no humanity is recovered, if all slots are filled.
-[*] Adds a setting specifying the Cyberware load at which no humanity is recovered. Any load above degens humanity, and any load below regens humanity. The load is calculated as the number of slots filled divided by the number of slots available.
-[/list]
-
-[img]https://user-images.githubusercontent.com/19748542/200848618-643147a9-207d-4dbd-b10c-0b04a8fb0a10.png[/img]
+[b][size=6]Features[/size][/b]
 
 Over time, humanity penalties inflicted due to murder slowly regenerates.
 
-[img]https://user-images.githubusercontent.com/19748542/200698707-8de548ec-3c52-48be-8ac0-5c7eb0e22ea6.png[/img]
+[img]https://user-images.githubusercontent.com/19748542/200916018-e2de585e-e519-406b-9cd0-f13762ec5dfc.png[/img]
+[img]https://user-images.githubusercontent.com/19748542/200917043-291e7d52-c3bd-48ef-a975-5b0affe56fae.png[/img]
 
-[code]
-[/code]
+[list]
+[*]Recover humanity throughout the day. Equipped cyberware reduces the recovery-rate proportionally to the number of slots filled. So that no humanity is recovered, when a certain threshold is reached. Below that threshold humanity degenerates.
+[*]Knocking-out an opponent instead of killing them rewards humanity.
+[/list]
 
-[size=4]Implementation details[/size]
+[img]https://user-images.githubusercontent.com/19748542/200928459-9505354a-1bfc-4c16-bca4-80ce8638e82e.png[/img]
 
-Edgerunner lore states, that "laying off chrome" prevents Cyberpychosis. In the context of CP2077, this system interprets "laying off chrome" as emptying Cyberwear slots.
+[b][size=6]Implementation details[/size][/b]
+
+Edgerunner lore states, that &quot;laying off chrome&quot; prevents Cyberpychosis. In the context of CP2077, this system interprets &quot;laying off chrome&quot; as emptying Cyberwear slots.
+
+[b][size=5]Recovery over time[/size][/b]
 
 Humanity recovery is calculated as a linear interpolation in two parts.
 
 [list]
-[*] If the [b]Cyberware load is higher than the threshold[/b], degens humanity proportional to the load over the threshold. Interpolates [code]l \in [k,1] -> [0,-r][/code] where [code]l[/code] is the load, [code]k[/code] is the threshold (settings), and [code]r[/code] is the recovery rate (settings)
+[*]If the [b]Cyberware load is higher than the threshold[/b], degens humanity proportional to the load over the threshold. Interpolates $$l \in [k,1] -&gt; [0,-r]$$ where $l$ is the load, $k$ is the threshold (settings), and $r$ is the recovery rate (settings)
 
-[*] If the [b]Cyberware load is lower than the threshold[/b], regens humanity proportional to the load under the threshold Interpolates [code]l \in [0,k] -> [0,r][/code] where [code]l[/code] is the load, [code]k[/code] is the threshold (settings), and [code]r[/code] is the recovery rate (settings)
+[*]If the [b]Cyberware load is lower than the threshold[/b], regens humanity proportional to the load under the threshold Interpolates $$l \in [0,k] -&gt; [0,r]$$ where $l$ is the load, $k$ is the threshold (settings), and $r$ is the recovery rate (settings)
 [/list]
+
+[b][size=5]Recovery on knockout[/size][/b]
+
+Humanity is recovered inversely proportional to the penalty incurred for the kill.
+
+The amount of humanity recovered is given by the following equation. $$d / c ^ e$$ where $d$ is the dividend (settings), $c$ is the kill cost, and $e$ the exponent (settings).
+
+A dividend of zero turns off recovery on knockout.
