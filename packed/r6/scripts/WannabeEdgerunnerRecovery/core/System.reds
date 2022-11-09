@@ -170,8 +170,8 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     LDebug(s"Cyberwear load is \(slotsFillFrac), player equipped \(slots.Equipped) out of \(slots.Total) slots");
 
     // Compute $a*(\frac{c_{empty}}{c_{filled}})*t^{-1}$
-    let inc = this.config.recoveryAmount * slotsFreeFrac * dayFrac;
-    LDebug(s"Recovered \(this.config.recoveryAmount)*\(slotsFreeFrac)*\(dayFrac)=\(inc) humanity since last recovery");
+    let inc = this.config.recoveryRate * slotsFreeFrac * dayFrac;
+    LDebug(s"Recovered \(this.config.recoveryRate)*\(slotsFreeFrac)*\(dayFrac)=\(inc) humanity since last recovery");
     return inc;
   }
 
