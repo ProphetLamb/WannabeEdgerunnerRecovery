@@ -9,8 +9,8 @@ Extends the [Wannabe Edgerunner](https://www.nexusmods.com/cyberpunk2077/mods/56
 
 ## Features
 
-* Adds a setting specifying the amount of humanity recovered per day, if no Cyberware is equipped. Equipped cyberware reduces the recovery-rate proportionally to the number of slots filled. So that no humanity is recovered, if all slots are filled.
-* Adds a setting specifying the Cyberware load at which no humanity is recovered. Any load above degens humanity, and any load below regens humanity. The load is calculated as the number of slots filled divided by the number of slots available.
+* Recover humanity throughout the day. Equipped cyberware reduces the recovery-rate proportionally to the number of slots filled. So that no humanity is recovered, when a certain threshold is reached. Below that threshold humanity degenerates.
+* Knocking-out an opponent instead of killing them rewards humanity.
 
 ![Showcase: Settings](https://user-images.githubusercontent.com/19748542/200848618-643147a9-207d-4dbd-b10c-0b04a8fb0a10.png)
 
@@ -21,6 +21,8 @@ Over time, humanity penalties inflicted due to murder slowly regenerates.
 ## Implementation details
 
 Edgerunner lore states, that "laying off chrome" prevents Cyberpychosis. In the context of CP2077, this system interprets "laying off chrome" as emptying Cyberwear slots.
+
+### Recovery over time
 
 Humanity recovery is calculated as a linear interpolation in two parts.
 
@@ -38,6 +40,14 @@ This is illustrated in the diagram below.
 /                \
 -1 ---------------- 1 rate
 ```
+
+### Recovery on knockout
+
+Humanity is recovered inversely proportional to the penalty incurred for the kill.
+
+The amount of humanity recovered is given by the following equation. $$d / c ^ e$$ where $d$ is the dividend (settings), $c$ is the kill cost, and $e$ the exponent (settings).
+
+A dividend of zero turns off recovery on knockout.
 
 ### TODO
 - [ ] Fix bug where regeneration occurs on the game start screen, after load, before session start. [rn, circumvented by delay]
