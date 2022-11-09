@@ -61,6 +61,11 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     this.RecoverHumanity();
   }
 
+  private final func OnEnemyUnconscious(affiliation: gamedataAffiliation) {
+    LTrace("OnEnemyUnconscious");
+    this.KnockoutEnemy(affiliation);
+  }
+
   // ------------------------------------------
   // Core logic: ScriptableSystem
   // ------------------------------------------
@@ -89,7 +94,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   // ------------------------------------------
   /// Decreases damage to humanity by the amount specified
   /// Updates the humanity
-  private final func DecHumanityDmg(amount: Int32) {
+  private final func RecoverHumanityDamange(amount: Int32) {
     let humanityDmgPrevious = this.edgerunningSystem.currentHumanityDamage;
     let humanityDmg = Max(0, humanityDmgPrevious - amount);
     LInfo(s"Recovering \(amount) humanity, from \(humanityDmgPrevious) to \(humanityDmg)");
@@ -140,7 +145,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     // Schedule next recovery
     this.ScheduleRecoverHumanity();
     // Calculate the recovery from the current period
-    let humanityInc = this.GetRecoverHumanityPeriodInc();
+    let humanityInc = this.RecoverHumanityPeriodInc();
     if (humanityInc <= 0.0) { return; }
 
     // Compute the total recovery
@@ -148,12 +153,12 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     let humanityIntRecovery = Cast<Int32>(humanityRecovery);
     // Update the remainder of the integer recovery
     this.recoveryRem = humanityRecovery - Cast<Float>(humanityIntRecovery);
-    this.DecHumanityDmg(humanityIntRecovery);
+    this.RecoverHumanityDamange(humanityIntRecovery);
   }
 
   /// Returns the fractional amount of humanity to recover
   /// Updates `this.recoveryTsSec`
-  private func GetRecoverHumanityPeriodInc() -> Float {
+  private func RecoverHumanityPeriodInc() -> Float {
     // Elapsed fraction of a day
     // EngineTime is the simulated time, not the real time
     let tsNowSec = Cast<Float>(GameTime.GetSeconds(this.timeSystem.GetGameTime()));
@@ -212,6 +217,29 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     } else {
       return loadRem * rate / (1.0 - thres);
     }
+  }
+
+  // ------------------------------------------
+  // Core logic: Enemy Knockout
+  // ------------------------------------------
+  private func KnockoutEnemy(affiliation: gamedataAffiliation) {
+    let reward = this.GetEnemyKnockoutReward(affiliation);
+    LInfo(s"Knocking out enemy of affiliation \(affiliation)");
+    if reward > 0 {
+      this.RecoverHumanityDamange(reward);
+    }
+  }
+
+  /// Returns the reward for knocking an enemy unconscious (in humanity)
+  /// Computes $$d / c ^ e$$ where $d$ is the dividend, $c$ is the kill cost, and $e$ the exponent.
+  public func GetEnemyKnockoutReward(affiliation: gamedataAffiliation) -> Int32 {
+    let dividend = this.config.enemyUnconsciousDiv;
+    let exponent = this.config.enemyUnconsciousExp;
+    if dividend <= 0.0 { return 0; }
+
+    let killCost = this.edgerunningSystem.GetEnemyCost(affiliation);
+    let reward = dividend / PowF(Cast<Float>(killCost), exponent);
+    return Cast<Int32>(reward);
   }
 }
 
