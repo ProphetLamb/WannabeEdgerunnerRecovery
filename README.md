@@ -33,13 +33,14 @@ Humanity recovery is calculated as a linear interpolation in two parts.
 
 This is illustrated in the diagram below.
 ```
-0 ---|------------- 1 thres
-    /\
-   /    \
-  /        \
- /            \
-/                \
--1 ---------------- 1 rate
+     thres
+0 ---|------------- 1 load
+|    /\
+|   /    \
+|  /        \
+| /            \
+|/                \
+1 -rate   +rate
 ```
 
 ### Recovery on knockout
