@@ -7,8 +7,12 @@
 
 Extends the [Wannabe Edgerunner](https://www.nexusmods.com/cyberpunk2077/mods/5646) mod, to recover humanity over time.
 
-Adds a setting specifiying the humanity recovery rate per day.
-![Showcase: Settings](https://user-images.githubusercontent.com/19748542/200698305-f62bf78b-7ed4-42e4-816c-546dff08e8b8.png)
+## Features
+
+* Adds a setting specifying the amount of humanity recovered per day, if no Cyberware is equipped. Equipped cyberware reduces the recovery-rate proportionally to the number of slots filled. So that no humanity is recovered, if all slots are filled.
+* Adds a setting specifying the Cyberware load at which no humanity is recovered. Any load above degens humanity, and any load below regens humanity. The load is calculated as the number of slots filled divided by the number of slots available.
+
+![Showcase: Settings](https://user-images.githubusercontent.com/19748542/200834546-c1a1492d-c6d6-4ea4-9d5a-044c23781f6c.png)
 
 Over time, humanity penalties inflicted due to murder slowly regenerates.
 
@@ -18,12 +22,25 @@ Over time, humanity penalties inflicted due to murder slowly regenerates.
 
 Edgerunner lore states, that "laying off chrome" prevents Cyberpychosis. In the context of CP2077, this system interprets "laying off chrome" as emptying Cyberwear slots.
 
-Humanity recovery rate is calculated as
+Humanity recovery is calculated as a linear interpolation in two parts.
 
-$a*(\frac{c_{empty}}{c_{filled}})*t^{-1}$ where $a$ is the recovery amount, $c$ is the player Cyberware, and $t$ is the conversion from a day in-game to real time (1d in-game equals 3h time by default).
+- If the **Cyberware load is higher than the threshold** degens humanity proportional to the load over the threshold. Interpolates $$l \in [k,1] -> [0,-r]$$ where $l$ is the load, $k$ is the threshold (settings), and $r$ is the recovery rate (settings)
+
+- If the **Cyberware load is higher than the threshold** regens humanity proportional to the load under the threshold Interpolates $$l \in [0,k] -> [0,r]$$ where $l$ is the load, $k$ is the threshold (settings), and $r$ is the recovery rate (settings)
+
+This is illustrated in the diagram below.
+```
+0 ---|------------- 1 thres
+    /\
+   /    \
+  /        \ 
+ /            \
+/                \
+-1 ---------------- 1 rate
+```
 
 ### TODO
-- [ ] Fix bug where regeneration occurs on the game start screen, after load, before session start.
+- [ ] Fix bug where regeneration occurs on the game start screen, after load, before session start. [rn, circumvented by delay]
 - [ ] Prevent humanity regeneration during combat.
 - [ ] Add ru-ru local
 - [ ] Add cz-cz local
