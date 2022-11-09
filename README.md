@@ -58,6 +58,7 @@ A dividend of zero turns off recovery on knockout.
 - [ ] Gain humanity when donating to the homeless
 - [ ] Gain humanity upon certain quest completions (romance etc)
 - [ ] Gain humanity when petting cats!
+- [ ] Add visual feedback when Cyberware load exceeds the threshold. (Tint humaniy bar red)
 - [ ] Add ru-ru local
 - [ ] Add cz-cz local
 - [ ] Add it-it local
