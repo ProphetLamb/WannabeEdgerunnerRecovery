@@ -40,7 +40,7 @@ This is illustrated in the diagram below.
 |  /        \
 | /            \
 |/                \
-1 -rate   +rate
+1 rate   -rate
 ```
 
 ### Recovery on knockout
