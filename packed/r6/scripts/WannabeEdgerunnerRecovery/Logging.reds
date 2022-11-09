@@ -1,4 +1,4 @@
-module Edgerunning.Logging
+module Logging
 // Copyright (c) 2022 ProphetLamb
 // Source provided under the MIT licence
 //
@@ -6,9 +6,9 @@ module Edgerunning.Logging
 // This file contains logging utilities.
 //
 // # Usage
-// Copy the file to your mod's top-level dir, and replace the module `[your_mod].Logging`.
+// Copy the file to your mod's top-level dir.
 // Replace `[WER]` with the initials of the specific mod in brackets.
-// Import the utilities in your fils, using `import [your_mod].Logging.*`.
+// Import the utilities in your fils, using `import Logging.*`.
 //
 // Set the CombinedLogLevel value according to the table below.
 // | LogLevel | Value | Combined |
