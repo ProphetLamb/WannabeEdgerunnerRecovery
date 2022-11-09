@@ -18,17 +18,38 @@
           "entries": [
             {
               "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Regenerierung",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Recovery"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
               "femaleVariant": "Regenerierungsrate",
               "maleVariant": "",
               "primaryKey": 0,
-              "secondaryKey": "Mod-Edg-Humanity-Recovery"
+              "secondaryKey": "Mod-Edg-Recovery-Rate"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
               "femaleVariant": "Die täglich wiederhergestellte Menschlichkeit, insofern keine Cyberware installiert ist. Installierte Cyberware reduziert die Wiederherstellungsrate proportional zu der Anzahl an gefüllten Slots. Sodass keine Menschlichkeit wiederhergestellt wird, falls alle Slots gefüllt sind.",
               "maleVariant": "",
               "primaryKey": 0,
-              "secondaryKey": "Mod-Edg-Humanity-Recovery-Desc"
+              "secondaryKey": "Mod-Edg-Recovery-Rate-Desc"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Threshold",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Recovery-Threshold"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Die Cyberware-Auslastung, zu der keine Menschlichkeit wiederhergestellt wird. Jede Auslastung, die darüber liegt, degradiert die Menschheit, und jede Auslastung, die darunter liegt, regeneriert die Menschheit. Die Auslastung wird berechnet als die Anzahl der gefüllten Slots geteilt durch die Anzahl der verfügbaren Slots.",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Recovery-Threshold-Desc"
             }
           ]
         }
