@@ -19,7 +19,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   // The player
   private let player: wref<PlayerPuppet>;
   // The `GameTime` of the last `LaunchCycledRecoverHumanityRequest`
-  private persistent let recoveryTsSec: Float = 0;
+  private let recoveryTsSec: Float = 0;
   // Tracks the remainder of (integer) humanity recovery
   private persistent let recoveryRem: Float = 0;
 
@@ -111,7 +111,9 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   }
 
   public func StartRecoverHumanity() {
-    this.RecoverHumanity();
+    if !this.IsRecoveringHumanity() {
+      this.ScheduleRecoverHumanity();
+    }
   }
 
   public func StopRecoverHumanity() {
