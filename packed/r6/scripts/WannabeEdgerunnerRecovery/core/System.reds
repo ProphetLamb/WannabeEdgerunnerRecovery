@@ -238,7 +238,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     if dividend <= 0.0 { return 0; }
 
     let killCost = this.edgerunningSystem.GetEnemyCost(affiliation);
-    let reward = dividend / PowF(Cast<Float>(killCost), exponent);
+    let reward = dividend * PowF(Cast<Float>(killCost), -exponent);
     return Cast<Int32>(reward);
   }
 }
