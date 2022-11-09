@@ -16,9 +16,9 @@ protected cb func OnHumanityIconHoverOver(evt: ref<inkPointerEvent>) -> Bool {
   let data: ref<MessageTooltipData> = new MessageTooltipData();
   let curHumanity: Int32 = this.edgerunningSystem.GetHumanityCurrent();
   let totHumanity: Int32 = this.edgerunningSystem.GetHumanityTotal();
-  let curRate = this.edgerunningRecoverySystem.GetHumanityRecoveryRate();
-  let maxRate = this.edgerunningRecoverySystem.config.recoveryRate;
-  data.Title = s"\(GetLocalizedTextByKey(n"Mod-Edg-Humanity")): \(curHumanity) / \(totHumanity) \(GetLocalizedTextByKey(n"Mod-Edg-Recovery-Rate")): \(curRate) / \(maxRate)";
-  data.Description = s"\(GetLocalizedTextByKey(n"Mod-Edg-Humanity-Desc"))\n\(GetLocalizedTextByKey(n"Mod-Edg-Recovery-Rate-Desc"))";
+  let curRate = Cast<Int32>(this.edgerunningRecoverySystem.GetHumanityRecoveryRate());
+  let maxRate = Cast<Int32>((curRate < 0 ? -1.0 : 1.0) * this.edgerunningRecoverySystem.GetHumanityRecoveryRateMax());
+  data.Title = s"\(GetLocalizedTextByKey(n"Mod-Edg-Humanity")): \(curHumanity) / \(totHumanity)\n\(GetLocalizedTextByKey(n"Mod-Edg-Recovery-Rate")): \(curRate) / \(maxRate)";
+  data.Description = s"\(GetLocalizedTextByKey(n"Mod-Edg-Humanity-Desc"))\n\n\(GetLocalizedTextByKey(n"Mod-Edg-Recovery-Rate-Desc"))";
   this.m_TooltipsManager.ShowTooltip(data);
 }

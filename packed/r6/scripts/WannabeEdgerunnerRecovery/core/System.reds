@@ -188,13 +188,17 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     return inc;
   }
 
-  private func GetHumanityRecoveryRate() -> Float {
+  public func GetHumanityRecoveryRate() -> Float {
     let slots = EquipmentSystem.GetData(this.player).GetCyberwareSlotsCombinedCount();
     let load = CyberwareSlots.GetLoadFrac(slots);
     LDebug(s"Cyberwear load is \(load). \(slots.Equipped)/\(slots.Total)");
     let recoveryRate = EdgerunningRecoverySystem.GetRecoverHumanityRegenRate(this.config.recoveryRate, this.config.recoveryThres, load);
     LDebug(s"Recovery rate is \(recoveryRate). rate = \(this.config.recoveryRate), thres = \(this.config.recoveryThres), load = \(load)");
     return recoveryRate;
+  }
+
+  public func GetHumanityRecoveryRateMax() -> Float {
+    return this.config.recoveryRate;
   }
 
   /// Returns the degen rate, based on the current load and settings. Negate to get the recovery rate.
