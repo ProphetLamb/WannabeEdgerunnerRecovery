@@ -128,7 +128,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
 
   /// Registers a `LaunchCycledRecoverHumanityRequest`, executed after a period of time passed
   private func ScheduleRecoverHumanity() {
-    let delaySec = 10.0;
+    let delaySec = 66.0;
     LDebug(s"Scheduled next humanity recovery in \(delaySec)s");
     this.recoverHumanityDelayId = this.delaySystem.DelayScriptableSystemRequest(this.GetClassName(), new LaunchCycledRecoverHumanityRequest(), delaySec);
   }
@@ -190,9 +190,17 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
 
   // Returns the degen rate, based on the current load and settings. Negate to get the recovery rate.
   // Interpolates the load to the interval [-rate, rate], where rate is the recovery rate, zero centrered at the threshold
-  // -rate           thesh              rate
-  // |-----------------|----------------|
-  // 0               load               1
+  //
+  //   thres
+  // 0----|-------------1
+  //     /\
+  //    /    \
+  //   /        \
+  //  /            \
+  // / -rate          \ +rate
+  // 0------------------1
+  // load
+  //
   public static func GetRecoverHumanityDegenRate(const rate: Float, const thres: Float, const load: Float) -> Float {
     // Consider the load threshold for the recovery rate
     let loadRem = load - thres;
