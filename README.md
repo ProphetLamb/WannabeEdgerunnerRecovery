@@ -57,6 +57,7 @@ A dividend of zero turns off recovery on knockout.
 - [ ] Add on screens when restoring humanity (like exp gained notifications)
 - [ ] Gain humanity when donating to the homeless
 - [ ] Gain humanity upon certain quest completions (romance etc)
+- [ ] Gain humanity when petting cats!
 - [ ] Add ru-ru local
 - [ ] Add cz-cz local
 - [ ] Add it-it local
