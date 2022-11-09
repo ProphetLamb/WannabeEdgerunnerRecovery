@@ -34,3 +34,4 @@ public final const func GetCyberwareSlotsCombinedCount() -> CyberwareSlots {
   // Return a tuple of two 16bit integers (technically 16+15 bit: 1b sign,15b slotsEquipped, 16b slotsTotal
   return CyberwareSlots.Create(slotsTotal, slotsEquipped);
 }
+
