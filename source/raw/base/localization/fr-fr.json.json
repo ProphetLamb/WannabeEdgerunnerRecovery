@@ -18,7 +18,7 @@
           "entries": [
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Récupération",
+              "femaleVariant": "Régénération d'humanité",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Recovery"
@@ -39,7 +39,7 @@
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Valeur Seuil",
+              "femaleVariant": "Seuil Cyberware",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Recovery-Threshold"

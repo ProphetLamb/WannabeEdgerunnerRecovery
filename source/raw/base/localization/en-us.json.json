@@ -18,14 +18,14 @@
           "entries": [
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Recovery",
+              "femaleVariant": "Humanity recovery",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Recovery"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Recovery-Rate",
+              "femaleVariant": "Recovery-rate",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Recovery-Rate"
@@ -39,7 +39,7 @@
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Threshold",
+              "femaleVariant": "Cyberware threshold",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Recovery-Threshold"
