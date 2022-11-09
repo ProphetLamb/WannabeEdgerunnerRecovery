@@ -17,7 +17,7 @@ Over time, humanity penalties inflicted due to murder slowly regenerates.
 * Recover humanity throughout the day. Equipped cyberware reduces the recovery-rate proportionally to the number of slots filled. So that no humanity is recovered, when a certain threshold is reached. Below that threshold humanity degenerates.
 * Knocking-out an opponent instead of killing them rewards humanity.
 
-![Showcase: Settings](https://user-images.githubusercontent.com/19748542/200916395-2e21b67a-889f-48d1-b47f-bb35745b530f.png)
+![Showcase: Settings](https://user-images.githubusercontent.com/19748542/200928459-9505354a-1bfc-4c16-bca4-80ce8638e82e.png)
 
 ## Implementation details
 
@@ -52,7 +52,7 @@ A dividend of zero turns off recovery on knockout.
 
 ### TODO
 - [ ] Fix bug where regeneration occurs on the game start screen, after load, before session start. [rn, circumvented by delay]
-- [ ] Prevent humanity regeneration during combat.
+- [x] Prevent humanity regeneration during combat.
 - [ ] Add ru-ru local
 - [ ] Add cz-cz local
 - [ ] Add it-it local
