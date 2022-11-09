@@ -33,10 +33,10 @@ This is illustrated in the diagram below.
   thres
 -1 --|------------- 1 rate
     /\
-    /    \
+   /    \
   /        \
-  /            \
-/          \ 
+ /            \
+/                \ 
 0------------------1 load
 ```
 
