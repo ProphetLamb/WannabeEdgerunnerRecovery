@@ -27,19 +27,20 @@ Edgerunner lore states, that "laying off chrome" prevents Cyberpychosis. In the 
 
 Humanity recovery is calculated as a linear interpolation in two parts.
 
-- If the **Cyberware load is higher than the threshold**, degens humanity proportional to the load over the threshold. Interpolates $$l \in [k,1] -> [0,-r]$$ where $l$ is the load, $k$ is the threshold (settings), and $r$ is the recovery rate (settings)
+- If the **Cyberware load is higher than the threshold**, degens humanity proportional to the load over the threshold. Interpolates $$l \in [k,1] \rightarrow [0,-r]$$ where $l$ is the load, $k$ is the threshold (settings), and $r$ is the recovery rate (settings)
 
-- If the **Cyberware load is lower than the threshold**, regens humanity proportional to the load under the threshold Interpolates $$l \in [0,k] -> [0,r]$$ where $l$ is the load, $k$ is the threshold (settings), and $r$ is the recovery rate (settings)
+- If the **Cyberware load is lower than the threshold**, regens humanity proportional to the load under the threshold Interpolates $$l \in [0,k] \rightarrow [0,r]$$ where $l$ is the load, $k$ is the threshold (settings), and $r$ is the recovery rate (settings)
 
 This is illustrated in the diagram below.
 ```
-0 ---|------------- 1 thres
-    /\
-   /    \
-  /        \
- /            \
-/                \
--1 ---------------- 1 rate
+     thres
+0 ---|------------- 1 load
+|    /\
+|   /    \
+|  /        \
+| /            \
+|/                \
+1 rate   -rate
 ```
 
 ### Recovery on knockout
