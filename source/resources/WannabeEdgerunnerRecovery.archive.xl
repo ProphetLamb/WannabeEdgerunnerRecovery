@@ -1,5 +1,5 @@
 localization:
   onscreens:
-    en-us: base\localization\de-de.json
-    de-de: base\localization\en-us.json
+    de-de: base\localization\de-de.json
+    en-us: base\localization\en-us.json
     fr-fr: base\localization\fr-fr.json
