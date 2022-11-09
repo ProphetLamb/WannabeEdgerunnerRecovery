@@ -181,19 +181,20 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
       return 0.0;
     }
 
+    let recoveryRate = this.GetHumanityRecoveryRate();
     // Compute Cyberwear load
-    let slots = EquipmentSystem.GetData(this.player).GetCyberwareSlotsCombinedCount();
-
-    let load = CyberwareSlots.GetLoadFrac(slots);
-    LDebug(s"Cyberwear load is \(load). \(slots.Equipped)/\(slots.Total)");
-
-
-    let recoveryRate = EdgerunningRecoverySystem.GetRecoverHumanityRegenRate(this.config.recoveryRate, this.config.recoveryThres, load);
-    LDebug(s"Recovery rate is \(recoveryRate). rate = \(this.config.recoveryRate), thres = \(this.config.recoveryThres), load = \(load)");
-
     let inc = recoveryRate * dayFrac;
     LDebug(s"Recovery increment is \(inc). dayFrac = \(dayFrac)");
     return inc;
+  }
+
+  private func GetHumanityRecoveryRate() -> Float {
+    let slots = EquipmentSystem.GetData(this.player).GetCyberwareSlotsCombinedCount();
+    let load = CyberwareSlots.GetLoadFrac(slots);
+    LDebug(s"Cyberwear load is \(load). \(slots.Equipped)/\(slots.Total)");
+    let recoveryRate = EdgerunningRecoverySystem.GetRecoverHumanityRegenRate(this.config.recoveryRate, this.config.recoveryThres, load);
+    LDebug(s"Recovery rate is \(recoveryRate). rate = \(this.config.recoveryRate), thres = \(this.config.recoveryThres), load = \(load)");
+    return recoveryRate;
   }
 
   /// Returns the degen rate, based on the current load and settings. Negate to get the recovery rate.
