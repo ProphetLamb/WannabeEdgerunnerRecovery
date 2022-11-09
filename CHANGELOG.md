@@ -9,6 +9,10 @@ Archive containing the mod logic and locals.
 - Missing localizations
 
 # Changelog
+## v0.3.0: Recovery on knockout
+- Implement humanity recovery on knockout.
+- Prevent recovery over time during combat.
+---
 ## v0.2.0: Recovery load threshold
 - Add a threshold to settings, above which humanity regens and below which humanity degens.
 - Add more translations
