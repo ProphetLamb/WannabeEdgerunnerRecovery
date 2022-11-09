@@ -3,6 +3,8 @@
 
 # Wannabe Edgerunner - Humanity Recovery
 
+**Find me on [NexusMods](https://www.nexusmods.com/cyberpunk2077/mods/6330).**
+
 Extends the [Wannabe Edgerunner](https://www.nexusmods.com/cyberpunk2077/mods/5646) mod, to recover humanity over time.
 
 Adds a setting specifiying the humanity recovery rate per day.
