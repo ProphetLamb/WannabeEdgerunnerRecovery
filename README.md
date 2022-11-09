@@ -12,7 +12,7 @@ Extends the [Wannabe Edgerunner](https://www.nexusmods.com/cyberpunk2077/mods/56
 * Adds a setting specifying the amount of humanity recovered per day, if no Cyberware is equipped. Equipped cyberware reduces the recovery-rate proportionally to the number of slots filled. So that no humanity is recovered, if all slots are filled.
 * Adds a setting specifying the Cyberware load at which no humanity is recovered. Any load above degens humanity, and any load below regens humanity. The load is calculated as the number of slots filled divided by the number of slots available.
 
-![Showcase: Settings](https://user-images.githubusercontent.com/19748542/200834546-c1a1492d-c6d6-4ea4-9d5a-044c23781f6c.png)
+![Showcase: Settings](https://user-images.githubusercontent.com/19748542/200848618-643147a9-207d-4dbd-b10c-0b04a8fb0a10.png)
 
 Over time, humanity penalties inflicted due to murder slowly regenerates.
 
