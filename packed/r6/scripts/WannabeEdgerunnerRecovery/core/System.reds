@@ -164,12 +164,10 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     }
 
     // Compute Cyberwear load
-    let slotsCombined = EquipmentSystem.GetData(this.player).GetCyberwareSlotsCombinedCount();
-    let slotsTotal = Cast<Float>(slotsCombined & 65535);
-    let slotsEquipped = Cast<Float>(slotsCombined / 65535);
-    let slotsFillFrac = slotsTotal <= 0.0 ? 1.0 : ClampF(slotsEquipped / slotsTotal, 0.0, 1.0);
+    let slots = EquipmentSystem.GetData(this.player).GetCyberwareSlotsCombinedCount();
+    let slotsFillFrac = slots.Total <= 0 ? 1.0 : ClampF(Cast<Float>(slots.Equipped) / Cast<Float>(slots.Total), 0.0, 1.0);
     let slotsFreeFrac = 1.0 - slotsFillFrac;
-    LDebug(s"Cyberwear load is \(slotsFillFrac), player equipped \(slotsEquipped) out of \(slotsTotal) slots");
+    LDebug(s"Cyberwear load is \(slotsFillFrac), player equipped \(slots.Equipped) out of \(slots.Total) slots");
 
     // Compute $a*(\frac{c_{empty}}{c_{filled}})*t^{-1}$
     let inc = this.config.recoveryAmount * slotsFreeFrac * dayFrac;
@@ -179,7 +177,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
 
   /// Registers a `LaunchCycledRecoverHumanityRequest`, executed after a period of time passed
   private func ScheduleRecoverHumanity() {
-    let delaySec = 66.0;
+    let delaySec = 10.0;
     LDebug(s"Scheduled next humanity recovery in \(delaySec)s");
     this.recoverHumanityDelayId = this.delaySystem.DelayScriptableSystemRequest(this.GetClassName(), new LaunchCycledRecoverHumanityRequest(), delaySec);
   }

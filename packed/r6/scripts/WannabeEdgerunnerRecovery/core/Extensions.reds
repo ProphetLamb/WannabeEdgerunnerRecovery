@@ -4,7 +4,7 @@ module Edgerunning.System
 /// slotsTotal := (slotsCombined & 65535)
 /// slotsEquipped := (slotsCombined - 65535)
 @addMethod(EquipmentSystemPlayerData)
-public final const func GetCyberwareSlotsCombinedCount() -> Int32 {
+public final const func GetCyberwareSlotsCombinedCount() -> CyberwareSlots {
   let slotsEquipped = 0;
   let slotsTotal = 0;
   for slot in [
@@ -32,5 +32,5 @@ public final const func GetCyberwareSlotsCombinedCount() -> Int32 {
     slotsTotal += len;
   };
   // Return a tuple of two 16bit integers (technically 16+15 bit: 1b sign,15b slotsEquipped, 16b slotsTotal
-  return (slotsTotal & 65535) | (slotsEquipped * 65536);
+  return CyberwareSlots.Create(slotsTotal, slotsEquipped);
 }
