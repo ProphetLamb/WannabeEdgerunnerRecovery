@@ -16,4 +16,6 @@ public class EdgerunnerRecoveryConfig {
   @runtimeProperty("ModSettings.min", "0")
   @runtimeProperty("ModSettings.max", "1")
   let recoveryThres: Float = 1;
+
+  let recoveryScheduleDelaySec: Float = 66;
 }
