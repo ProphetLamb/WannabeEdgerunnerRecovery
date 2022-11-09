@@ -92,15 +92,18 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   // ------------------------------------------
   // Interop logic: EdgerunningSystem
   // ------------------------------------------
-  /// Decreases damage to humanity by the amount specified
-  /// Updates the humanity
-  private final func RecoverHumanityDamange(amount: Int32) {
+
+  public final func GetMaxHumanityDmg() -> Int32 {
+    return this.edgerunningSystem.config.baseHumanityPool - this.edgerunningSystem.cyberwareCost;
+  }
+  /// Applies a offset to the humanity damage
+  /// If the offset is positive, it will increase the damage; otherwise it will decrease it
+  /// If the offset is not zero, invalidates the EdgerunningSystem.s
+  private final func RecoverHumanityDmg(amount: Int32) {
     let humanityDmgPrevious = this.edgerunningSystem.currentHumanityDamage;
-    let humanityDmg = Max(0, humanityDmgPrevious - amount);
+    let humanityDmg = Clamp(humanityDmgPrevious - amount, 0, this.GetMaxHumanityDmg());
     LInfo(s"Recovering \(amount) humanity, from \(humanityDmgPrevious) to \(humanityDmg)");
-    if (humanityDmg == humanityDmgPrevious) {
-      return;
-    }
+    if (amount == 0) { return; }
     // Decrement the humanity damage
     this.edgerunningSystem.currentHumanityDamage = humanityDmg;
     this.edgerunningSystem.InvalidateCurrentState();
@@ -153,7 +156,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     let humanityIntRecovery = Cast<Int32>(humanityRecovery);
     // Update the remainder of the integer recovery
     this.recoveryRem = humanityRecovery - Cast<Float>(humanityIntRecovery);
-    this.RecoverHumanityDamange(humanityIntRecovery);
+    this.RecoverHumanityDmg(humanityIntRecovery);
   }
 
   /// Returns the fractional amount of humanity to recover
@@ -182,7 +185,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     let slots = EquipmentSystem.GetData(this.player).GetCyberwareSlotsCombinedCount();
 
     let load = CyberwareSlots.GetLoadFrac(slots);
-    LDebug(s"Cyberwear free load is \(load). \(slots.Equipped)/\(slots.Total)");
+    LDebug(s"Cyberwear load is \(load). \(slots.Equipped)/\(slots.Total)");
 
 
     let recoveryRate = EdgerunningRecoverySystem.GetRecoverHumanityRegenRate(this.config.recoveryRate, this.config.recoveryThres, load);
@@ -213,21 +216,20 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
 
     // Interpolate [0,loadRem] to [0,rate]
     if loadRem < 0.0 {
-      return loadRem * rate / thres;
-    } else {
       return loadRem * rate / (1.0 - thres);
+    } else {
+      return loadRem * rate / thres;
     }
   }
 
   // ------------------------------------------
   // Core logic: Enemy Knockout
   // ------------------------------------------
+
   private func KnockoutEnemy(affiliation: gamedataAffiliation) {
     let reward = this.GetEnemyKnockoutReward(affiliation);
     LInfo(s"Knocking out enemy of affiliation \(affiliation)");
-    if reward > 0 {
-      this.RecoverHumanityDamange(reward);
-    }
+    this.RecoverHumanityDmg(reward);
   }
 
   /// Returns the reward for knocking an enemy unconscious (in humanity)
