@@ -85,6 +85,20 @@
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Unconscious-Exponent-Desc"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "In-Combat recovery",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Recovery-InCombat"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "In-Combat recovery toggles whether to recover humanity over time during combat.",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Recovery-InCombat-Desc"
             }
           ]
         }

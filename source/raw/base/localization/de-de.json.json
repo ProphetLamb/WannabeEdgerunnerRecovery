@@ -32,7 +32,7 @@
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Die täglich wiederhergestellte Menschlichkeit, insofern keine Cyberware installiert ist. Installierte Cyberware reduziert die Wiederherstellungsrate proportional zu der Anzahl an gefüllten Slots. Sodass keine Menschlichkeit wiederhergestellt wird, falls alle Slots gefüllt sind.",
+              "femaleVariant": "Die täglich regenerierte Menschlichkeit, insofern keine Cyberware installiert ist. Installierte Cyberware reduziert die Regenerationsrate proportional zu der Anzahl an gefüllten Slots. Sodass keine Menschlichkeit regeneriert wird, falls alle Slots gefüllt sind.",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Recovery-Rate-Desc"
@@ -46,7 +46,7 @@
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Die Cyberware-Auslastung, zu der keine Menschlichkeit wiederhergestellt wird. Jede Auslastung, die darüber liegt, degradiert die Menschheit, und jede Auslastung, die darunter liegt, regeneriert die Menschheit. Die Auslastung wird berechnet als die Anzahl der gefüllten Slots geteilt durch die Anzahl der verfügbaren Slots.",
+              "femaleVariant": "Die Cyberware-Auslastung, zu der keine Menschlichkeit regeneriert wird. Jede Auslastung, die darüber liegt, degradiert die Menschheit, und jede Auslastung, die darunter liegt, regeneriert die Menschheit. Die Auslastung wird berechnet als die Anzahl der gefüllten Slots geteilt durch die Anzahl der verfügbaren Slots.",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Recovery-Threshold-Desc"
@@ -67,7 +67,7 @@
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Die maximale Anzahl an Menschlichkeit, die durch einen Knockout wiederhergestellt wird.",
+              "femaleVariant": "Die maximale Anzahl an Menschlichkeit, die durch einen Knockout regeneriert wird.",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Unconscious-Dividend-Desc"
@@ -85,6 +85,20 @@
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Unconscious-Exponent-Desc"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "In-Combat Regeneration",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Recovery-InCombat"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "In-Combat Regeneration schaltet, ob die Menschlichkeit im Kampf über Zeit regeneriert wird.",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Recovery-InCombat-Desc"
             }
           ]
         }
