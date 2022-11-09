@@ -9,14 +9,15 @@ Extends the [Wannabe Edgerunner](https://www.nexusmods.com/cyberpunk2077/mods/56
 
 ## Features
 
+Over time, humanity penalties inflicted due to murder slowly regenerates.
+
+![Showcase: Humanity Degen](https://user-images.githubusercontent.com/19748542/200916018-e2de585e-e519-406b-9cd0-f13762ec5dfc.png)
+![Showcase: Humanity Regen](https://user-images.githubusercontent.com/19748542/200917043-291e7d52-c3bd-48ef-a975-5b0affe56fae.png)
+
 * Recover humanity throughout the day. Equipped cyberware reduces the recovery-rate proportionally to the number of slots filled. So that no humanity is recovered, when a certain threshold is reached. Below that threshold humanity degenerates.
 * Knocking-out an opponent instead of killing them rewards humanity.
 
-![Showcase: Settings](https://user-images.githubusercontent.com/19748542/200848618-643147a9-207d-4dbd-b10c-0b04a8fb0a10.png)
-
-Over time, humanity penalties inflicted due to murder slowly regenerates.
-
-![Showcase: Humanity](https://user-images.githubusercontent.com/19748542/200698707-8de548ec-3c52-48be-8ac0-5c7eb0e22ea6.png)
+![Showcase: Settings](https://user-images.githubusercontent.com/19748542/200916395-2e21b67a-889f-48d1-b47f-bb35745b530f.png)
 
 ## Implementation details
 
