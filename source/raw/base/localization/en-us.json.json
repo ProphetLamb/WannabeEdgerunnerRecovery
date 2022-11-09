@@ -60,14 +60,14 @@
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "The dividend when calculating the knockout reward.",
+              "femaleVariant": "The maximum amount of humanity recovered from a knockout.",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Unconscious-Dividend"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "The exponent of the divisor - the kill penalty - when calculating the reward.",
+              "femaleVariant": "The exponent applied to the kill penalty.",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Unconscious-Exp"
