@@ -20,7 +20,7 @@ module Logging
 // | Debug    | 16    | 31       |
 // I suggest the value 3 for release, and 31 for testing.
 
-public static func CombinedLogLevel() -> Int32 { return 3; }
+public static func CombinedLogLevel() -> Int32 { return 31; }
 
 /// Logs a debug message useful for validating the state during development, but otherwise not of import.
 public static func LDebug(const str: script_ref<String>) -> Void {
@@ -58,7 +58,7 @@ public static func LError(const str: script_ref<String>) -> Void {
 }
 
 /// Logs an error, if the object is no defined. Returns `true`, if the object is *undefined*; otherwise `false`
-public static func LErrorIfUndef(const o: ref<IScriptable>, n: CName) -> Bool {
+public static func LErrorIfUndef(const o: ref<IScriptable>, const n: CName) -> Bool {
   if !IsDefined(o) {
     LError(s"\(n) is undefined");
     return true;

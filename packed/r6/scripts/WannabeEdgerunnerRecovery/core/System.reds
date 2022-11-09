@@ -61,9 +61,14 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     this.RecoverHumanity();
   }
 
-  private final func OnEnemyUnconscious(affiliation: gamedataAffiliation) {
-    LTrace("OnEnemyUnconscious");
+  private final func OnEnemyKnockout(affiliation: gamedataAffiliation) {
+    LTrace("OnEnemyKnockout");
     this.KnockoutEnemy(affiliation);
+  }
+
+  private final func OnPlayerCombatStateChanged(state: PlayerCombatState) {
+    LTrace("OnPlayerCombatStateChanged");
+    this.ChangeCombatState(state);
   }
 
   // ------------------------------------------
@@ -98,7 +103,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   }
   /// Applies a offset to the humanity damage
   /// If the offset is positive, it will increase the damage; otherwise it will decrease it
-  /// If the offset is not zero, invalidates the EdgerunningSystem.s
+  /// If the offset is not zero, invalidates the EdgerunningSystem.
   private final func RecoverHumanityDmg(amount: Int32) {
     let humanityDmgPrevious = this.edgerunningSystem.currentHumanityDamage;
     let humanityDmg = Clamp(humanityDmgPrevious - amount, 0, this.GetMaxHumanityDmg());
@@ -132,6 +137,8 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     }
     // Assign invalid DelayID
     this.recoverHumanityDelayId = invalidDelayId;
+    // Reset the timestamp, so that the next recovery cycle will start from the current time
+    this.recoveryTsSec = 0.0;
   }
 
   /// Registers a `LaunchCycledRecoverHumanityRequest`, executed after a period of time passed
@@ -189,6 +196,11 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   }
 
   public func GetHumanityRecoveryRate() -> Float {
+    // If not recovering, return 0
+    if !this.IsRecoveringHumanity() {
+      return 0.0;
+    }
+
     let slots = EquipmentSystem.GetData(this.player).GetCyberwareSlotsCombinedCount();
     let load = CyberwareSlots.GetLoadFrac(slots);
     LDebug(s"Cyberwear load is \(load). \(slots.Equipped)/\(slots.Total)");
@@ -247,6 +259,27 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     let killCost = this.edgerunningSystem.GetEnemyCost(affiliation);
     let reward = dividend * PowF(Cast<Float>(killCost), -exponent);
     return Cast<Int32>(reward);
+  }
+
+  // ------------------------------------------
+  // Core logic: Combat regeneration
+  // ------------------------------------------
+
+  private func ChangeCombatState(state: PlayerCombatState) {
+    if this.config.recoveryInCombat {
+      LInfo("Recovery in combat is enabled");
+      // ensure that recovery is started
+      this.StartRecoverHumanity();
+      return;
+    }
+    if Equals(state, PlayerCombatState.OutOfCombat) {
+      LInfo("Recovery started, player exited combat");
+      // immediatly start recovering
+      this.RecoverHumanity();
+    } else {
+      this.StopRecoverHumanity();
+      LInfo("Recovery stopped, player entered combat");
+    }
   }
 }
 

@@ -27,6 +27,6 @@ protected func RewardKiller(killer: wref<GameObject>, killType: gameKillType, is
   LDebug(s"Reward killer: target = \(affiliation), killType = \(killType), neutralizeType = \(type), NPC type = \(this.GetNPCType())");
 
   if !Equals(type, ENeutralizeType.Killed) && Equals(this.GetNPCType(), gamedataNPCType.Human) {
-    EdgerunningRecoverySystem.GetInstance(this.GetGame()).OnEnemyUnconscious(affiliation);
+    EdgerunningRecoverySystem.GetInstance(this.GetGame()).OnEnemyKnockout(affiliation);
   };
 }

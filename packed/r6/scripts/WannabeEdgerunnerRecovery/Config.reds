@@ -3,7 +3,7 @@ public class EdgerunnerRecoveryConfig {
   @runtimeProperty("ModSettings.category", "Mod-Edg-Unconscious")
   @runtimeProperty("ModSettings.displayName", "Mod-Edg-Unconscious-Dividend")
   @runtimeProperty("ModSettings.description", "Mod-Edg-Unconscious-Dividend-Desc")
-  @runtimeProperty("ModSettings.step", "0.5")
+  @runtimeProperty("ModSettings.step", "1")
   @runtimeProperty("ModSettings.min", "0")
   @runtimeProperty("ModSettings.max", "50.0")
   let enemyUnconsciousDiv: Float = 10.0;
@@ -34,6 +34,12 @@ public class EdgerunnerRecoveryConfig {
   @runtimeProperty("ModSettings.min", "0.0")
   @runtimeProperty("ModSettings.max", "1.0")
   let recoveryThres: Float = 1;
+
+  @runtimeProperty("ModSettings.mod", "Edgerunner")
+  @runtimeProperty("ModSettings.category", "Mod-Edg-Recovery")
+  @runtimeProperty("ModSettings.displayName", "Mod-Edg-Recovery-InCombat")
+  @runtimeProperty("ModSettings.description", "Mod-Edg-Recovery-InCombat-Desc")
+  let recoveryInCombat: Bool = false;
 
   let recoveryScheduleDelaySec: Float = 66.0;
 }
