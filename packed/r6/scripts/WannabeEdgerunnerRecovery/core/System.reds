@@ -1,6 +1,7 @@
 module Edgerunning.System
 
-import Edgerunning.Logging.*
+import Logging.*
+import Math.*
 
 public class EdgerunningRecoverySystem extends ScriptableSystem {
   // ------------------------------------------
@@ -123,6 +124,13 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     this.recoverHumanityDelayId = invalidDelayId;
   }
 
+  /// Registers a `LaunchCycledRecoverHumanityRequest`, executed after a period of time passed
+  private func ScheduleRecoverHumanity() {
+    let delaySec = 10.0;
+    LDebug(s"Scheduled next humanity recovery in \(delaySec)s");
+    this.recoverHumanityDelayId = this.delaySystem.DelayScriptableSystemRequest(this.GetClassName(), new LaunchCycledRecoverHumanityRequest(), delaySec);
+  }
+
   /// Recovers humanity according to the equipped Cyberware, and the time elapsed, since the last recovery
   /// Schedules next recovery.
   /// Updates `currentHumanityDamage`, `this.recoveryRem`, `this.recoveryTsSec`
@@ -130,7 +138,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     // Schedule next recovery
     this.ScheduleRecoverHumanity();
     // Calculate the recovery from the current period
-    let humanityInc = this.RecoverHumanityCalcPeriodInc();
+    let humanityInc = this.GetRecoverHumanityPeriodInc();
     if (humanityInc <= 0.0) { return; }
 
     // Compute the total recovery
@@ -143,7 +151,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
 
   /// Returns the fractional amount of humanity to recover
   /// Updates `this.recoveryTsSec`
-  private func RecoverHumanityCalcPeriodInc() -> Float {
+  private func GetRecoverHumanityPeriodInc() -> Float {
     // Elapsed fraction of a day
     // EngineTime is the simulated time, not the real time
     let tsNowSec = Cast<Float>(GameTime.GetSeconds(this.timeSystem.GetGameTime()));
@@ -165,20 +173,33 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
 
     // Compute Cyberwear load
     let slots = EquipmentSystem.GetData(this.player).GetCyberwareSlotsCombinedCount();
-    let slotsFillFrac = slots.Total <= 0 ? 1.0 : ClampF(Cast<Float>(slots.Equipped) / Cast<Float>(slots.Total), 0.0, 1.0);
-    let slotsFreeFrac = 1.0 - slotsFillFrac;
-    LDebug(s"Cyberwear load is \(slotsFillFrac), player equipped \(slots.Equipped) out of \(slots.Total) slots");
 
-    // Compute $a*(\frac{c_{empty}}{c_{filled}})*t^{-1}$
-    let inc = this.config.recoveryRate * slotsFreeFrac * dayFrac;
-    LDebug(s"Recovered \(this.config.recoveryRate)*\(slotsFreeFrac)*\(dayFrac)=\(inc) humanity since last recovery");
+    let freeLoad = 1.0 - CyberwareSlots.GetLoadFrac(slots);
+    LDebug(s"Cyberwear free load is \(freeLoad). \(slots.Equipped)/\(slots.Total)");
+
+    let recoveryRate = this.GetRecoverHumanityRate(this.config.recoveryRate, this.config.recoveryThres, freeLoad);
+    LDebug(s"Recovery rate is \(recoveryRate). rate = \(this.config.recoveryRate), thres = \(this.config.recoveryThres), freeLoad = \(freeLoad)");
+
+    let inc = recoveryRate * dayFrac;
+    LDebug(s"Recovery increment is \(inc). dayFrac = \(dayFrac)");
     return inc;
   }
 
-  /// Registers a `LaunchCycledRecoverHumanityRequest`, executed after a period of time passed
-  private func ScheduleRecoverHumanity() {
-    let delaySec = 10.0;
-    LDebug(s"Scheduled next humanity recovery in \(delaySec)s");
-    this.recoverHumanityDelayId = this.delaySystem.DelayScriptableSystemRequest(this.GetClassName(), new LaunchCycledRecoverHumanityRequest(), delaySec);
+  // Returns the recovery rate, based on the current Cyberwear load and settings
+  // Maps the load to the interval [-rate, rate], where rate is the recovery rate, zero centrered at the threshold
+  public static func GetRecoverHumanityRate(const rate: Float, const thres: Float, const load: Float) -> Float {
+    // Consider the load threshold for the recovery rate
+    let loadRem = load - thres;
+    // If the value is tiny return zero
+    if IsEpsilonF(loadRem) { return 0.0; }
+
+    // Interpolate [0,loadRem] to [0,rate]
+    if loadRem < 0.0 {
+      return loadRem * rate / thres;
+    } else {
+      return loadRem * rate / (1.0 - thres);
+    }
   }
 }
+
+
