@@ -174,20 +174,24 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     // Compute Cyberwear load
     let slots = EquipmentSystem.GetData(this.player).GetCyberwareSlotsCombinedCount();
 
-    let freeLoad = 1.0 - CyberwareSlots.GetLoadFrac(slots);
-    LDebug(s"Cyberwear free load is \(freeLoad). \(slots.Equipped)/\(slots.Total)");
+    let load = CyberwareSlots.GetLoadFrac(slots);
+    LDebug(s"Cyberwear free load is \(load). \(slots.Equipped)/\(slots.Total)");
 
-    let recoveryRate = this.GetRecoverHumanityRate(this.config.recoveryRate, this.config.recoveryThres, freeLoad);
-    LDebug(s"Recovery rate is \(recoveryRate). rate = \(this.config.recoveryRate), thres = \(this.config.recoveryThres), freeLoad = \(freeLoad)");
+
+    let recoveryRate = -EdgerunningRecoverySystem.GetRecoverHumanityDegenRate(this.config.recoveryRate, this.config.recoveryThres, load);
+    LDebug(s"Recovery rate is \(recoveryRate). rate = \(this.config.recoveryRate), thres = \(this.config.recoveryThres), load = \(load)");
 
     let inc = recoveryRate * dayFrac;
     LDebug(s"Recovery increment is \(inc). dayFrac = \(dayFrac)");
     return inc;
   }
 
-  // Returns the recovery rate, based on the current Cyberwear load and settings
-  // Maps the load to the interval [-rate, rate], where rate is the recovery rate, zero centrered at the threshold
-  public static func GetRecoverHumanityRate(const rate: Float, const thres: Float, const load: Float) -> Float {
+  // Returns the degen rate, based on the current load and settings. Negate to get the recovery rate.
+  // Interpolates the load to the interval [-rate, rate], where rate is the recovery rate, zero centrered at the threshold
+  // -rate           thesh              rate
+  // |-----------------|----------------|
+  // 0               load               1
+  public static func GetRecoverHumanityDegenRate(const rate: Float, const thres: Float, const load: Float) -> Float {
     // Consider the load threshold for the recovery rate
     let loadRem = load - thres;
     // If the value is tiny return zero
