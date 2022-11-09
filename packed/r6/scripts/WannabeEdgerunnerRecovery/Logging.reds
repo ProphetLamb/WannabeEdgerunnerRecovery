@@ -20,7 +20,7 @@ module Logging
 // | Debug    | 16    | 31       |
 // I suggest the value 3 for release, and 31 for testing.
 
-public static func CombinedLogLevel() -> Int32 { return 31; }
+public static func CombinedLogLevel() -> Int32 { return 3; }
 
 /// Logs a debug message useful for validating the state during development, but otherwise not of import.
 public static func LDebug(const str: script_ref<String>) -> Void {
