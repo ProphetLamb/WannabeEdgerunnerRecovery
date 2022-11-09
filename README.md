@@ -1,5 +1,5 @@
 <p align="center">
-<img src="assets/icon.png" alt="Logo">
+<img src="assets/banner.png" alt="Logo">
 
 # Wannabe Edgerunner - Humanity Recovery
 
