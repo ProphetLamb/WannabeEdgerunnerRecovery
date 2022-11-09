@@ -50,6 +50,27 @@
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Recovery-Threshold-Desc"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Enemy knockout reward",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Unconscious"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "The dividend when calculating the knockout reward.",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Unconscious-Dividend"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "The exponent of the divisor - the kill penalty - when calculating the reward.",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Unconscious-Exp"
             }
           ]
         }
