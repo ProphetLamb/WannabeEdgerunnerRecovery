@@ -1,5 +1,23 @@
 public class EdgerunnerRecoveryConfig {
   @runtimeProperty("ModSettings.mod", "Edgerunner")
+  @runtimeProperty("ModSettings.category", "Mod-Edg-Unconscious")
+  @runtimeProperty("ModSettings.displayName", "Mod-Edg-Unconscious-Dividend")
+  @runtimeProperty("ModSettings.description", "Mod-Edg-Unconscious-Dividend-Desc")
+  @runtimeProperty("ModSettings.step", "0.5")
+  @runtimeProperty("ModSettings.min", "0")
+  @runtimeProperty("ModSettings.max", "50.0")
+  let enemyUnconsciousDiv: Float = 10.0;
+
+  @runtimeProperty("ModSettings.mod", "Edgerunner")
+  @runtimeProperty("ModSettings.category", "Mod-Edg-Unconscious")
+  @runtimeProperty("ModSettings.displayName", "Mod-Edg-Unconscious-Exp")
+  @runtimeProperty("ModSettings.description", "Mod-Edg-Unconscious-Exp-Desc")
+  @runtimeProperty("ModSettings.step", "0.1")
+  @runtimeProperty("ModSettings.min", "0.0")
+  @runtimeProperty("ModSettings.max", "2.0")
+  let enemyUnconsciousExp: Float = 0.5;
+
+  @runtimeProperty("ModSettings.mod", "Edgerunner")
   @runtimeProperty("ModSettings.category", "Mod-Edg-Recovery")
   @runtimeProperty("ModSettings.displayName", "Mod-Edg-Recovery-Rate")
   @runtimeProperty("ModSettings.description", "Mod-Edg-Recovery-Rate-Desc")
@@ -13,8 +31,8 @@ public class EdgerunnerRecoveryConfig {
   @runtimeProperty("ModSettings.displayName", "Mod-Edg-Recovery-Threshold")
   @runtimeProperty("ModSettings.description", "Mod-Edg-Recovery-Threshold-Desc")
   @runtimeProperty("ModSettings.step", "0.1")
-  @runtimeProperty("ModSettings.min", "0")
-  @runtimeProperty("ModSettings.max", "1")
+  @runtimeProperty("ModSettings.min", "0.0")
+  @runtimeProperty("ModSettings.max", "1.0")
   let recoveryThres: Float = 1;
 
   let recoveryScheduleDelaySec: Float = 66;
