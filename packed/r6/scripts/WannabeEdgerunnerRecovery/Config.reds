@@ -10,8 +10,8 @@ public class EdgerunnerRecoveryConfig {
 
   @runtimeProperty("ModSettings.mod", "Edgerunner")
   @runtimeProperty("ModSettings.category", "Mod-Edg-Unconscious")
-  @runtimeProperty("ModSettings.displayName", "Mod-Edg-Unconscious-Exp")
-  @runtimeProperty("ModSettings.description", "Mod-Edg-Unconscious-Exp-Desc")
+  @runtimeProperty("ModSettings.displayName", "Mod-Edg-Unconscious-Exponent")
+  @runtimeProperty("ModSettings.description", "Mod-Edg-Unconscious-Exponent-Desc")
   @runtimeProperty("ModSettings.step", "0.1")
   @runtimeProperty("ModSettings.min", "0.0")
   @runtimeProperty("ModSettings.max", "2.0")
@@ -35,5 +35,5 @@ public class EdgerunnerRecoveryConfig {
   @runtimeProperty("ModSettings.max", "1.0")
   let recoveryThres: Float = 1;
 
-  let recoveryScheduleDelaySec: Float = 66;
+  let recoveryScheduleDelaySec: Float = 66.0;
 }

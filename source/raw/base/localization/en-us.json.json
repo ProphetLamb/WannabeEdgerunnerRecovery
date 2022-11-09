@@ -53,24 +53,38 @@
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Enemy knockout reward",
+              "femaleVariant": "Knockout reward",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Unconscious"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "The maximum amount of humanity recovered from a knockout.",
+              "femaleVariant": "Dividend",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Unconscious-Dividend"
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "The exponent applied to the kill penalty.",
+              "femaleVariant": "The maximum amount of humanity recovered from a knockout.",
               "maleVariant": "",
               "primaryKey": 0,
-              "secondaryKey": "Mod-Edg-Unconscious-Exp"
+              "secondaryKey": "Mod-Edg-Unconscious-Dividend-Desc"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Exponent",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Unconscious-Exponent"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "The negative exponent applied to the murder penalty.",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Unconscious-Exponent-Desc"
             }
           ]
         }
