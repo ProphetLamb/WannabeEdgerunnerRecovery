@@ -180,7 +180,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     LDebug(s"Cyberwear free load is \(load). \(slots.Equipped)/\(slots.Total)");
 
 
-    let recoveryRate = -EdgerunningRecoverySystem.GetRecoverHumanityDegenRate(this.config.recoveryRate, this.config.recoveryThres, load);
+    let recoveryRate = EdgerunningRecoverySystem.GetRecoverHumanityRegenRate(this.config.recoveryRate, this.config.recoveryThres, load);
     LDebug(s"Recovery rate is \(recoveryRate). rate = \(this.config.recoveryRate), thres = \(this.config.recoveryThres), load = \(load)");
 
     let inc = recoveryRate * dayFrac;
@@ -188,22 +188,21 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     return inc;
   }
 
-  // Returns the degen rate, based on the current load and settings. Negate to get the recovery rate.
-  // Interpolates the load to the interval [-rate, rate], where rate is the recovery rate, zero centrered at the threshold
-  //
-  //   thres
-  // 0----|-------------1
-  //     /\
-  //    /    \
-  //   /        \
-  //  /            \
-  // / -rate          \ +rate
-  // 0------------------1
-  // load
-  //
-  public static func GetRecoverHumanityDegenRate(const rate: Float, const thres: Float, const load: Float) -> Float {
+  /// Returns the degen rate, based on the current load and settings. Negate to get the recovery rate.
+  /// Interpolates the load to the interval [-rate, rate], where rate is the recovery rate, zero centrered at the threshold
+  ///
+  /// 0 ---|------------- 1 thres
+  ///     /\
+  ///    /    \
+  ///   /        \
+  ///  /            \
+  /// /                \
+  ///-1 ---------------- 1 rate
+  /// load
+  ///
+  public static func GetRecoverHumanityRegenRate(const rate: Float, const thres: Float, const load: Float) -> Float {
     // Consider the load threshold for the recovery rate
-    let loadRem = load - thres;
+    let loadRem = thres - load;
     // If the value is tiny return zero
     if IsEpsilonF(loadRem) { return 0.0; }
 
