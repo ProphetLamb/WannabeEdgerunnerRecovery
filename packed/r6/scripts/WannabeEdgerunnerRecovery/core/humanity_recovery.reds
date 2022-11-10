@@ -137,7 +137,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     let humanityDmgOld = this.GetHumanityDmg();
     let humanityDmgNew = Clamp(humanityDmgOld - amount, 0, this.GetHumanityDmgPool());
     LInfo(s"Recovering \(amount) humanity, from \(humanityDmgOld) to \(humanityDmgNew)");
-    if (amount == 0) { return; }
+    if (humanityDmgOld == humanityDmgNew) { return; }
     // Decrement the humanity damage
     this.edgerunningSystem.currentHumanityDamage = humanityDmgNew;
     this.edgerunningSystem.InvalidateCurrentState();
@@ -195,6 +195,8 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     let tsDeltaSec = tsNowSec - this.recoveryTsSec;
     let dayFrac = tsDeltaSec / 86400.0;
     LDebug(s"Computing humanity increment for \(tsDeltaSec)s, in period \(this.recoveryTsSec)..\(tsNowSec)s");
+    let g = this.player.GetGame();
+    LDebug(s"game=\(GameTime.GetSeconds(GameInstance.GetGameTime(g))), playthru=\(EngineTime.ToFloat(GameInstance.GetPlaythroughTime(g))), ng=\(EngineTime.ToFloat(GameInstance.GetEngineTime(g))), sim=\(EngineTime.ToFloat(GameInstance.GetSimTime(g)))");
     // Update timestamp
     this.recoveryTsSec = tsNowSec;
 
