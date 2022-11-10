@@ -9,6 +9,11 @@ Archive containing the mod logic and locals.
 - Missing localizations
 
 # Changelog
+## v0.4.0: Pay for recovery + Notifications
+- Show a xp gain notification when gaining humanity
+- Donate to the poor to recovery humanity
+- Fix bug where the locals would not load.
+---
 ## v0.3.0: Recovery on knockout
 - Implement humanity recovery on knockout.
 - Prevent recovery over time during combat.
