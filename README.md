@@ -1,9 +1,11 @@
 <p align="center">
-<img src="assets/banner.png" alt="Logo">
+     <img src="assets/banner.png" alt="Logo">
+</p>
 
 # Wannabe Edgerunner - Humanity Recovery
 
 **Find me on [NexusMods](https://www.nexusmods.com/cyberpunk2077/mods/6330).**
+**Help with localization effort is much appreciated**
 
 Extends the [Wannabe Edgerunner](https://www.nexusmods.com/cyberpunk2077/mods/5646) mod, to recover humanity over time.
 
@@ -11,19 +13,29 @@ Extends the [Wannabe Edgerunner](https://www.nexusmods.com/cyberpunk2077/mods/56
 
 Over time, humanity penalties inflicted due to murder slowly regenerates.
 
-![Showcase: Humanity Degen](https://user-images.githubusercontent.com/19748542/200916018-e2de585e-e519-406b-9cd0-f13762ec5dfc.png)
-![Showcase: Humanity Regen](https://user-images.githubusercontent.com/19748542/200917043-291e7d52-c3bd-48ef-a975-5b0affe56fae.png)
-
 * Recover humanity throughout the day. Equipped cyberware reduces the recovery-rate proportionally to the number of slots filled. So that no humanity is recovered, when a certain threshold is reached. Below that threshold humanity degenerates.
 * Knocking-out an opponent instead of killing them rewards humanity.
+* Donating to a homeless person recovers humanity.
+* Petting Nibbels recovers humanity. [WIP]
 
-![Showcase: Settings](https://user-images.githubusercontent.com/19748542/200928459-9505354a-1bfc-4c16-bca4-80ce8638e82e.png)
+![Over time](assets/over-time.png)
+
+![Donate](assets/donate.png)
 
 ## Implementation details
 
 Edgerunner lore states, that "laying off chrome" prevents Cyberpychosis. In the context of CP2077, this system interprets "laying off chrome" as emptying Cyberwear slots.
 
+This mod provides a immersive and highly configurable experience of the regeneration.
+
+![Settings](assets/settings.png)
+
 ### Recovery over time
+
+The current regen or degen can be seen in the Cyberdeck/Ripperdoc screen.
+
+![Degen](assets/ripperdoc-degen.png)
+![Regen](assets/ripperdoc-regen.png)
 
 Humanity recovery is calculated as a linear interpolation in two parts.
 
@@ -53,14 +65,15 @@ The amount of humanity recovered is given by the following equation. $$d / c ^ e
 
 A dividend of zero turns off recovery on knockout.
 
+
 ### TODO
 - [ ] Fix bug where regeneration occurs on the game start screen, after load, before session start. [rn, circumvented by delay]
 - [x] Prevent humanity regeneration during combat.
 - [x] Add on screens when restoring humanity (like exp gained notifications)
-- [ ] Gain humanity when donating to the homeless
+- [x] Gain humanity when donating to the homeless
 - [ ] Gain humanity upon certain quest completions (romance etc)
 - [ ] Gain humanity when petting cats!
-- [ ] Add visual feedback when Cyberware load exceeds the threshold. (Tint humaniy bar red)
+- [x] Add visual feedback when Cyberware load exceeds the threshold. (Tint humaniy bar red)
 - [ ] Add ru-ru local
 - [ ] Add cz-cz local
 - [ ] Add it-it local
