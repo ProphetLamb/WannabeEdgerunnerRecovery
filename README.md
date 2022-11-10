@@ -9,14 +9,23 @@
 
 Extends the [Wannabe Edgerunner](https://www.nexusmods.com/cyberpunk2077/mods/5646) mod, to recover humanity over time.
 
+Best used with:
+
+- [Pet your Cat](https://www.nexusmods.com/cyberpunk2077/mods/6198)
+- [Ripperdeck](https://www.nexusmods.com/cyberpunk2077/mods/2850)
+
 ## Features
 
 Over time, humanity penalties inflicted due to murder slowly regenerates.
 
-* Recover humanity throughout the day. Equipped cyberware reduces the recovery-rate proportionally to the number of slots filled. So that no humanity is recovered, when a certain threshold is reached. Below that threshold humanity degenerates.
-* Knocking-out an opponent instead of killing them rewards humanity.
-* Donating to a homeless person recovers humanity.
-* Petting Nibbels recovers humanity. [WIP]
+- Recover humanity throughout the day. Equipped cyberware reduces the recovery-rate proportionally to the number of slots filled. So that no humanity is recovered, when a certain threshold is reached. Below that threshold humanity degenerates.
+- Knocking-out an opponent instead of killing them rewards humanity.
+- Donating to a homeless person recovers humanity.
+- Petting Nibbels recovers humanity. [WIP]
+
+| Note                                                               |
+| ------------------------------------------------------------------ |
+| To save resources, the recovery is only applied once every minute. |
 
 ![Over time](assets/over-time.png)
 
@@ -44,6 +53,7 @@ Humanity recovery is calculated as a linear interpolation in two parts.
 - If the **Cyberware load is lower than the threshold**, regens humanity proportional to the load under the threshold Interpolates $$l \in [0,k] \rightarrow [0,r]$$ where $l$ is the load, $k$ is the threshold (settings), and $r$ is the recovery rate (settings)
 
 This is illustrated in the diagram below.
+
 ```
      thres
 0 ---|------------- 1 load
@@ -65,8 +75,8 @@ The amount of humanity recovered is given by the following equation. $$d / c ^ e
 
 A dividend of zero turns off recovery on knockout.
 
-
 ### TODO
+
 - [ ] Fix bug where regeneration occurs on the game start screen, after load, before session start. [rn, circumvented by delay]
 - [x] Prevent humanity regeneration during combat.
 - [x] Add on screens when restoring humanity (like exp gained notifications)
