@@ -113,16 +113,6 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   public final func GetHumanityRedPool() -> Int32 {
     return this.edgerunningSystem.config.baseHumanityPool;
   }
-  /// The remaining humanity pool
-  public final func GetHumanityRedRem() -> Int32 {
-    return this.edgerunningSystem.config.baseHumanityPool - this.edgerunningSystem.cyberwareCost - this.edgerunningSystem.currentHumanityDamage;
-  }
-  public final func IsGlichingApplied() -> Bool {
-    return this.GetHumanityRedRem() <= this.edgerunningSystem.config.glitchesThreshold;
-  }
-  public final func IsPsychoApplied() -> Bool {
-    return this.GetHumanityRedRem() <= this.edgerunningSystem.config.psychosisThreshold;
-  }
   /// Applies a offset to the humanity damage
   /// If the offset is positive, it will increase the damage; otherwise it will decrease it
   /// If the offset is not zero, invalidates the EdgerunningSystem.
@@ -134,6 +124,9 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     // Decrement the humanity damage
     this.edgerunningSystem.currentHumanityDamage = humanityDmgNew;
     this.edgerunningSystem.InvalidateCurrentState();
+
+    // show a hud notification on increment
+    this.QueueHumanityChangedNotify(amount);
   }
 
   // ------------------------------------------
@@ -200,7 +193,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     // Update timestamp
     this.recoveryTsSec = tsNowSec;
 
-    if (tsNowSec <= 0.0) {
+    if tsNowSec <= 0.0 || tsDeltaSec == tsNowSec {
       LWarn(s"Recovery time before was zero");
       return 0.0;
     }
@@ -311,28 +304,20 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   }
 
   // ------------------------------------------
-  // Interop logic: HUD
+  // Core logic: HUD
   // ------------------------------------------
 
-  public func GetHumanityMainColor() -> CName {
-    // If in psycho state, return dark red
-    if this.IsPsychoApplied() {
-      return n"MainColors.Red";
-    }
-    // If in gliching state, return red
-    if this.IsGlichingApplied() {
-      return n"MainColors.Warning";
-    }
-    // If degening, return organge
-    if this.GetHumanityRecoveryRate() < 0.0 {
-      return n"MainColors.GettingHacked";
-    }
-    // Full humanity, return light blue
-    if this.GetHumanityDmg() == 0 {
-    return n"MainColors.FaintBlue";
-    }
-    // Regening, return blue
-    return n"MainColors.ActiveBlue";
+  private func QueueHumanityChangedNotify(delta: Int32) {
+    let humanityRed = this.GetHumanityRed();
+    let evt: ref<ProficiencyProgressEvent>;
+    evt.delta = delta;
+    evt.expValue = this.GetHumanityRedPool() - humanityRed;
+    evt.remainingXP = humanityRed;
+    evt.currentLevel = 0;
+    evt.isLevelMaxed = true;
+    evt.type = gamedataProficiencyType.Invalid;
+    evt.typeAux = 1337; // reserved for humanity
+    GameInstance.GetUISystem(this.player.GetGame()).QueueEvent(evt);
   }
 }
 
