@@ -204,7 +204,13 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     let slots = EquipmentSystem.GetData(this.player).GetCyberwareSlotsCombinedCount();
     let load = CyberwareSlots.GetLoadFrac(slots);
     LDebug(s"Cyberwear load is \(load). \(slots.Equipped)/\(slots.Total)");
-    let recoveryRate = EdgerunningRecoverySystem.GetRecoverHumanityRegenRate(this.config.recoveryRate, this.config.recoveryThres, load);
+
+    let recoveryRate = EdgerunningRecoverySystem.GetRecoverHumanityRegenRateAdaptive(this.config.recoveryRate, this.config.recoveryThres, load);
+     if !this.config.recoveryAdaptive {
+      // Return the base recovery rate signed by the calculated recovery rate
+      LDebug("Adaptive recovery disabled, maximum recovery rate applied");
+      recoveryRate = SignF(recoveryRate) * this.config.recoveryRate;
+    }
     LDebug(s"Recovery rate is \(recoveryRate). rate = \(this.config.recoveryRate), thres = \(this.config.recoveryThres), load = \(load)");
     return recoveryRate;
   }
@@ -225,7 +231,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   ///-1 ---------------- 1 rate
   /// load
   ///
-  public static func GetRecoverHumanityRegenRate(const rate: Float, const thres: Float, const load: Float) -> Float {
+  public static func GetRecoverHumanityRegenRateAdaptive(const rate: Float, const thres: Float, const load: Float) -> Float {
     // Consider the load threshold for the recovery rate
     let loadRem = thres - load;
     // If the value is tiny return zero

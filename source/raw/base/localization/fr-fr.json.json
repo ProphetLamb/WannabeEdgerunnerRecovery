@@ -99,6 +99,20 @@
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Recovery-InCombat-Desc"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Taux adaptatif",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Recovery-Adaptive"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Adaptive rate permet de déterminer si le taux de régénération est dynamique ou statique. Si dynamique, le taux de régénération est calculé proportionnellement à la charge du cyberware ; sinon, le taux de régénération maximal est régénéré ou dégénéré.",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Recovery-Adaptive-Desc"
             }
           ]
         }

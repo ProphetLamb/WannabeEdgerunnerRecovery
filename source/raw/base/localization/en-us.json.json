@@ -99,6 +99,20 @@
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Recovery-InCombat-Desc"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Adaptive rate",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Recovery-Adaptive"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Adaptive rate toggles whether the regeneration rate is dynamic or static. If dynamic, the regeneration rate is calculated proportionally to the cyberware load; otherwise, the maximum regeneration rate is regenerated or degenerated.",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Recovery-Adaptive-Desc"
             }
           ]
         }

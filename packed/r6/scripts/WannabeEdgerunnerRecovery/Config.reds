@@ -19,6 +19,12 @@ public class EdgerunnerRecoveryConfig {
 
   @runtimeProperty("ModSettings.mod", "Edgerunner")
   @runtimeProperty("ModSettings.category", "Mod-Edg-Recovery")
+  @runtimeProperty("ModSettings.displayName", "Mod-Edg-Recovery-Adaptive")
+  @runtimeProperty("ModSettings.description", "Mod-Edg-Recovery-Adaptive-Desc")
+  let recoveryAdaptive: Bool = true;
+
+  @runtimeProperty("ModSettings.mod", "Edgerunner")
+  @runtimeProperty("ModSettings.category", "Mod-Edg-Recovery")
   @runtimeProperty("ModSettings.displayName", "Mod-Edg-Recovery-Rate")
   @runtimeProperty("ModSettings.description", "Mod-Edg-Recovery-Rate-Desc")
   @runtimeProperty("ModSettings.step", "5")
@@ -33,7 +39,7 @@ public class EdgerunnerRecoveryConfig {
   @runtimeProperty("ModSettings.step", "0.1")
   @runtimeProperty("ModSettings.min", "0.0")
   @runtimeProperty("ModSettings.max", "1.0")
-  let recoveryThres: Float = 1;
+  let recoveryThres: Float = 0.8;
 
   @runtimeProperty("ModSettings.mod", "Edgerunner")
   @runtimeProperty("ModSettings.category", "Mod-Edg-Recovery")

@@ -1,8 +1,6 @@
 module Edgerunning.System
 
-/// Returns the total and equipped number of Cyberware slots, as a tuple of two 16bit integers.
-/// slotsTotal := (slotsCombined & 65535)
-/// slotsEquipped := (slotsCombined - 65535)
+/// Returns the total and equipped number of Cyberware slots
 @addMethod(EquipmentSystemPlayerData)
 public final const func GetCyberwareSlotsCombinedCount() -> CyberwareSlots {
   let slotsEquipped = 0;

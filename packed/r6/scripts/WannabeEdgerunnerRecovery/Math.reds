@@ -4,3 +4,5 @@ module Math
 public static func EpsilonF() -> Float { return 0.0000001192092896; }
 /// Indicates whether the absolute of a value is less than the epsilon value.
 public static func IsEpsilonF(const v: Float) -> Bool { return AbsF(v) < 0.0000001192092896; }
+
+public static func SignF(const s: Float) -> Float { return s < 0.0 ? -1.0 : 1.0; }
