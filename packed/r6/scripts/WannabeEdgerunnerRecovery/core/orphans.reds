@@ -17,10 +17,8 @@ public struct CyberwareSlots {
   }
 }
 
-public struct HumanityChangedArgs {
-  public let OldValue: Int32;
-  public let NewValue: Int32;
-  public let Maximum: Int32;
-}
-
 public class LaunchCycledRecoverHumanityRequest extends ScriptableSystemRequest {}
+
+public class RecoverHumanityRequest extends ScriptableSystemRequest {
+  public let Amount: Int32;
+}

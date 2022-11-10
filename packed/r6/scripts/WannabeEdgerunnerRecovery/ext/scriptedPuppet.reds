@@ -1,6 +1,6 @@
 module Edgerunning.System
 
-import Logging.LDebug
+import Logging.*
 
 @wrapMethod(ScriptedPuppet)
 protected func RewardKiller(killer: wref<GameObject>, killType: gameKillType, isAnyDamageNonlethal: Bool) -> Void {

@@ -59,7 +59,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   // The cycle for recovering humanity has elapsed
   private final func OnLaunchCycledRecoverHumanityRequest(request: ref<LaunchCycledRecoverHumanityRequest>) -> Void {
     LTrace("OnLaunchCycledRecoverHumanityRequest");
-    this.RecoverHumanity();
+    this.RecoverHumanityLoop();
   }
 
   private final func OnEnemyKnockout(affiliation: gamedataAffiliation) {
@@ -70,6 +70,11 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   private final func OnPlayerCombatStateChanged(state: PlayerCombatState) {
     LTrace("OnPlayerCombatStateChanged");
     this.ChangeCombatState(state);
+  }
+
+  private final func OnRecoverHumanityRequest(request: ref<RecoverHumanityRequest>) -> Void {
+    LTrace("OnRecoverHumanityRequest");
+    this.RecoverHumanity(request.Amount);
   }
 
   // ------------------------------------------
@@ -114,10 +119,11 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   public final func GetHumanityRedPool() -> Int32 {
     return this.edgerunningSystem.config.baseHumanityPool;
   }
+
   /// Applies a offset to the humanity damage
   /// If the offset is positive, it will increase the damage; otherwise it will decrease it
   /// If the offset is not zero, invalidates the EdgerunningSystem.
-  private final func RecoverHumanityDmg(amount: Int32) {
+  private final func RecoverHumanity(amount: Int32) {
     let humanityDmgOld = this.GetHumanityDmg();
     let humanityDmgNew = Clamp(humanityDmgOld - amount, 0, this.GetHumanityDmgPool());
     LInfo(s"Recovering \(amount) humanity, from \(humanityDmgOld) to \(humanityDmgNew)");
@@ -131,7 +137,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   }
 
   // ------------------------------------------
-  // Core logic: Recover humanity
+  // Core logic: Recover humanity over time
   // ------------------------------------------
 
   public func IsRecoveringHumanity() -> Bool {
@@ -167,24 +173,12 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   /// Recovers humanity according to the equipped Cyberware, and the time elapsed, since the last recovery
   /// Schedules next recovery.
   /// Updates `currentHumanityDamage`, `this.recoveryRem`, `this.recoveryTsSec`
-  private func RecoverHumanity() {
+  private func RecoverHumanityLoop() {
     // Schedule next recovery
     this.ScheduleRecoverHumanity();
+
     // Calculate the recovery from the current period
-    let humanityInc = this.RecoverHumanityPeriodInc();
-    if (humanityInc <= 0.0) { return; }
 
-    // Compute the total recovery
-    let humanityRecovery = this.recoveryRem + humanityInc;
-    let humanityIntRecovery = Cast<Int32>(humanityRecovery);
-    // Update the remainder of the integer recovery
-    this.recoveryRem = humanityRecovery - Cast<Float>(humanityIntRecovery);
-    this.RecoverHumanityDmg(humanityIntRecovery);
-  }
-
-  /// Returns the fractional amount of humanity to recover
-  /// Updates `this.recoveryTsSec`
-  private func RecoverHumanityPeriodInc() -> Float {
     // Elapsed fraction of a day
     // EngineTime is the simulated time, not the real time
     let tsNowSec = Cast<Float>(GameTime.GetSeconds(this.timeSystem.GetGameTime()));
@@ -196,19 +190,26 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
 
     if tsNowSec <= 0.0 || tsDeltaSec == tsNowSec {
       LWarn(s"Recovery time before was zero");
-      return 0.0;
+      return;
     }
 
     if tsDeltaSec <= 0.0 {
       LWarn(s"No time elapsed since last recovery");
-      return 0.0;
+      return;
     }
 
     let recoveryRate = this.GetHumanityRecoveryRate();
     // Compute Cyberwear load
-    let inc = recoveryRate * dayFrac;
-    LDebug(s"Recovery increment is \(inc). dayFrac = \(dayFrac)");
-    return inc;
+    let humanityInc = recoveryRate * dayFrac;
+    LDebug(s"Recovery increment is \(humanityInc). dayFrac = \(dayFrac)");
+    if (humanityInc <= 0.0) { return; }
+
+    // Compute the total recovery
+    let humanityRecovery = this.recoveryRem + humanityInc;
+    let humanityIntRecovery = Cast<Int32>(humanityRecovery);
+    // Update the remainder of the integer recovery
+    this.recoveryRem = humanityRecovery - Cast<Float>(humanityIntRecovery);
+    this.RecoverHumanity(humanityIntRecovery);
   }
 
   public func GetHumanityRecoveryRate() -> Float {
@@ -217,7 +218,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
       return 0.0;
     }
 
-    let slots = EquipmentSystem.GetData(this.player).GetCyberwareSlotsCombinedCount();
+    let slots: CyberwareSlots = EquipmentSystem.GetData(this.player).GetCyberwareSlotsCombinedCount();
     let load = CyberwareSlots.GetLoadFrac(slots);
     LDebug(s"Cyberwear load is \(load). \(slots.Equipped)/\(slots.Total)");
 
@@ -268,7 +269,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   private func KnockoutEnemy(affiliation: gamedataAffiliation) {
     let reward = this.GetEnemyKnockoutReward(affiliation);
     LInfo(s"Knocking out enemy of affiliation \(affiliation)");
-    this.RecoverHumanityDmg(reward);
+    this.RecoverHumanity(reward);
   }
 
   /// Returns the reward for knocking an enemy unconscious (in humanity)
@@ -297,7 +298,7 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     if Equals(state, PlayerCombatState.OutOfCombat) {
       LInfo("Recovery started, player exited combat");
       // immediatly start recovering
-      this.RecoverHumanity();
+      this.RecoverHumanityLoop();
     } else {
       this.StopRecoverHumanity();
       LInfo("Recovery stopped, player entered combat");
@@ -314,10 +315,12 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     evt.delta = delta;
     evt.expValue = this.GetHumanityRedPool() - humanityRed;
     evt.remainingXP = humanityRed;
-    evt.currentLevel = 0;
-    evt.isLevelMaxed = true;
-    evt.type = gamedataProficiencyType.Invalid;
+    evt.currentLevel = 1;
+    evt.isLevelMaxed = false;
+    evt.type = gamedataProficiencyType.Assault;
     evt.typeAux = 1337; // reserved for humanity
+
+    LDebug(s"Queueing humanity changed event: delta = \(delta), expValue = \(evt.expValue), remainingXP = \(evt.remainingXP)");
     GameInstance.GetUISystem(this.player.GetGame()).QueueEvent(evt);
   }
 }

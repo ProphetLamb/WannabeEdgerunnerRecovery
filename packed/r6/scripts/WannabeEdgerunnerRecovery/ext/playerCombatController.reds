@@ -4,6 +4,7 @@ import Logging.LTrace
 
 @wrapMethod(PlayerCombatController)
 public final func OnInvalidateActiveState(evt: ref<PlayerCombatControllerInvalidateEvent>) -> Void {
+  LTrace("OnInvalidateActiveState");
   let stateOld = this.m_otherVars.m_state;
   let stateNew = evt.m_state;
   wrappedMethod(evt);
