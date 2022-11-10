@@ -9,6 +9,9 @@ Archive containing the mod logic and locals.
 - Missing localizations
 
 # Changelog
+## v0.4.1: Bug fixes
+- Fix +1 humanity notification while at maximum recoverable humanity.
+- Fix aggressive timer
 ## v0.4.0: Pay for recovery + Notifications
 - Show a xp gain notification when gaining humanity
 - Donate to the poor to recovery humanity
