@@ -12,7 +12,7 @@ protected cb func OnInitialize() -> Bool {
 @wrapMethod(RipperDocGameController)
 protected cb func OnHumanityIconHoverOver(evt: ref<inkPointerEvent>) -> Bool {
   this.humanityIcon.SetStyle(r"base\\gameplay\\gui\\common\\main_colors.inkstyle");
-  this.humanityIcon.BindProperty(n"tintColor", n"MainColors.ActiveBlue");
+  this.humanityIcon.BindProperty(n"tintColor", this.edgerunningRecoverySystem.GetHumanityMainColor());
   let data: ref<MessageTooltipData> = new MessageTooltipData();
   let curHumanity: Int32 = this.edgerunningSystem.GetHumanityCurrent();
   let totHumanity: Int32 = this.edgerunningSystem.GetHumanityTotal();

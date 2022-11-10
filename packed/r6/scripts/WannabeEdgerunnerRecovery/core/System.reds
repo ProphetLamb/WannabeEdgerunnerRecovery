@@ -97,20 +97,42 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   // ------------------------------------------
   // Interop logic: EdgerunningSystem
   // ------------------------------------------
-
-  public final func GetMaxHumanityDmg() -> Int32 {
+  /// The current damage to humanity
+  public final func GetHumanityDmg() -> Int32 {
+    return this.edgerunningSystem.currentHumanityDamage;
+  }
+  /// The maximum amount of damage to humanity inflicable due to murder
+  public final func GetHumanityDmgPool() -> Int32 {
     return this.edgerunningSystem.config.baseHumanityPool - this.edgerunningSystem.cyberwareCost;
+  }
+  /// The combined reduction to humanity inflicted due to Cyberware and damage
+  public final func GetHumanityRed() -> Int32 {
+    return this.edgerunningSystem.cyberwareCost + this.edgerunningSystem.currentHumanityDamage;
+  }
+  // The total humanity pool
+  public final func GetHumanityRedPool() -> Int32 {
+    return this.edgerunningSystem.config.baseHumanityPool;
+  }
+  /// The remaining humanity pool
+  public final func GetHumanityRedRem() -> Int32 {
+    return this.edgerunningSystem.config.baseHumanityPool - this.edgerunningSystem.cyberwareCost - this.edgerunningSystem.currentHumanityDamage;
+  }
+  public final func IsGlichingApplied() -> Bool {
+    return this.GetHumanityRedRem() <= this.edgerunningSystem.config.glitchesThreshold;
+  }
+  public final func IsPsychoApplied() -> Bool {
+    return this.GetHumanityRedRem() <= this.edgerunningSystem.config.psychosisThreshold;
   }
   /// Applies a offset to the humanity damage
   /// If the offset is positive, it will increase the damage; otherwise it will decrease it
   /// If the offset is not zero, invalidates the EdgerunningSystem.
   private final func RecoverHumanityDmg(amount: Int32) {
-    let humanityDmgPrevious = this.edgerunningSystem.currentHumanityDamage;
-    let humanityDmg = Clamp(humanityDmgPrevious - amount, 0, this.GetMaxHumanityDmg());
-    LInfo(s"Recovering \(amount) humanity, from \(humanityDmgPrevious) to \(humanityDmg)");
+    let humanityDmgOld = this.GetHumanityDmg();
+    let humanityDmgNew = Clamp(humanityDmgOld - amount, 0, this.GetHumanityDmgPool());
+    LInfo(s"Recovering \(amount) humanity, from \(humanityDmgOld) to \(humanityDmgNew)");
     if (amount == 0) { return; }
     // Decrement the humanity damage
-    this.edgerunningSystem.currentHumanityDamage = humanityDmg;
+    this.edgerunningSystem.currentHumanityDamage = humanityDmgNew;
     this.edgerunningSystem.InvalidateCurrentState();
   }
 
@@ -286,6 +308,31 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
       this.StopRecoverHumanity();
       LInfo("Recovery stopped, player entered combat");
     }
+  }
+
+  // ------------------------------------------
+  // Interop logic: HUD
+  // ------------------------------------------
+
+  public func GetHumanityMainColor() -> CName {
+    // If in psycho state, return dark red
+    if this.IsPsychoApplied() {
+      return n"MainColors.Red";
+    }
+    // If in gliching state, return red
+    if this.IsGlichingApplied() {
+      return n"MainColors.Warning";
+    }
+    // If degening, return organge
+    if this.GetHumanityRecoveryRate() < 0.0 {
+      return n"MainColors.GettingHacked";
+    }
+    // Full humanity, return light blue
+    if this.GetHumanityDmg() == 0 {
+    return n"MainColors.FaintBlue";
+    }
+    // Regening, return blue
+    return n"MainColors.ActiveBlue";
   }
 }
 
