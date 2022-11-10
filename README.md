@@ -43,6 +43,8 @@ This is illustrated in the diagram below.
 1 rate   -rate
 ```
 
+Disabling adaptive recovery always uses the maximum recovery rate, positive or negative.
+
 ### Recovery on knockout
 
 Humanity is recovered inversely proportional to the penalty incurred for the kill.
