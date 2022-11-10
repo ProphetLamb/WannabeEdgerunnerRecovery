@@ -56,7 +56,7 @@ A dividend of zero turns off recovery on knockout.
 ### TODO
 - [ ] Fix bug where regeneration occurs on the game start screen, after load, before session start. [rn, circumvented by delay]
 - [x] Prevent humanity regeneration during combat.
-- [ ] Add on screens when restoring humanity (like exp gained notifications)
+- [x] Add on screens when restoring humanity (like exp gained notifications)
 - [ ] Gain humanity when donating to the homeless
 - [ ] Gain humanity upon certain quest completions (romance etc)
 - [ ] Gain humanity when petting cats!
