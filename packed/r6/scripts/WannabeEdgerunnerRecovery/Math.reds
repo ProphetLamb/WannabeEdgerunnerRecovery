@@ -6,3 +6,6 @@ public static func EpsilonF() -> Float { return 0.0000001192092896; }
 public static func IsEpsilonF(const v: Float) -> Bool { return AbsF(v) < 0.0000001192092896; }
 
 public static func SignF(const s: Float) -> Float { return s < 0.0 ? -1.0 : 1.0; }
+public static func SignF(const s: Int32) -> Float { return s < 0 ? -1.0 : 1.0; }
+public static func Sign(const s: Int32) -> Int32 { return s < 0 ? -1 : 1; }
+public static func Sign(const s: Float) -> Int32 { return s < 0.0 ? -1 : 1; }

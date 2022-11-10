@@ -1,4 +1,6 @@
 public class EdgerunnerRecoveryConfig {
+  let recoveryScheduleDelaySec: Float = 66.0;
+
   @runtimeProperty("ModSettings.mod", "Edgerunner")
   @runtimeProperty("ModSettings.category", "Mod-Edg-Unconscious")
   @runtimeProperty("ModSettings.displayName", "Mod-Edg-Unconscious-Dividend")
@@ -46,6 +48,4 @@ public class EdgerunnerRecoveryConfig {
   @runtimeProperty("ModSettings.displayName", "Mod-Edg-Recovery-InCombat")
   @runtimeProperty("ModSettings.description", "Mod-Edg-Recovery-InCombat-Desc")
   let recoveryInCombat: Bool = false;
-
-  let recoveryScheduleDelaySec: Float = 66.0;
 }
