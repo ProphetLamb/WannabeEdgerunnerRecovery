@@ -53,14 +53,7 @@
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Knockout-Belohnung",
-              "maleVariant": "",
-              "primaryKey": 0,
-              "secondaryKey": "Mod-Edg-Unconscious"
-            },
-            {
-              "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Dividend",
+              "femaleVariant": "Knockout dividend",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Unconscious-Dividend"
@@ -74,7 +67,7 @@
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Exponent",
+              "femaleVariant": "Knockout exponent",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Unconscious-Exponent"
@@ -113,6 +106,34 @@
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Recovery-Adaptive-Desc"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Belohnungen",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Reward"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Belohnt Menschlichkeit für eine bestimmte Handlung. Zum Beispiel Geld spenden oder Nibbles streicheln.",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Reward-Desc"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "An einen NPC spenden",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Reward-Donate"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Ein Tier streicheln",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Reward-Pet"
             }
           ]
         }

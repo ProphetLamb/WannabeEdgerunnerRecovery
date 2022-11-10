@@ -53,14 +53,7 @@
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Knockout reward",
-              "maleVariant": "",
-              "primaryKey": 0,
-              "secondaryKey": "Mod-Edg-Unconscious"
-            },
-            {
-              "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Dividend",
+              "femaleVariant": "Knockout dividend",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Unconscious-Dividend"
@@ -74,7 +67,7 @@
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Exponent",
+              "femaleVariant": "Knockout exponent",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Unconscious-Exponent"
@@ -113,6 +106,34 @@
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Recovery-Adaptive-Desc"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Rewards",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Reward"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Rewards humanity for a specific action. e.g. donating money, or petting Nibbles.",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Reward-Desc"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Donate to a NPC",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Reward-Donate"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Pet a animal",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Reward-Pet"
             }
           ]
         }

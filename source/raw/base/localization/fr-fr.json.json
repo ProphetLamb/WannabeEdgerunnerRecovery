@@ -53,14 +53,7 @@
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Récompense knock-out",
-              "maleVariant": "",
-              "primaryKey": 0,
-              "secondaryKey": "Mod-Edg-Unconscious"
-            },
-            {
-              "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Dividend",
+              "femaleVariant": "Knock-out dividend",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Unconscious-Dividend"
@@ -74,7 +67,7 @@
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Exponent",
+              "femaleVariant": "Knock-out exponent",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Unconscious-Exponent"
@@ -113,6 +106,34 @@
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Recovery-Adaptive-Desc"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Récompenses",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Reward"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Récompense l'humanité pour une action spécifique. Par exemple, donner de l'argent ou caresser Nibbles.",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Reward-Desc"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Faire un don à un PNJ",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Reward-Donate"
+            },
+            {
+              "$type": "localizationPersistenceOnScreenEntry",
+              "femaleVariant": "Caresser un animal",
+              "maleVariant": "",
+              "primaryKey": 0,
+              "secondaryKey": "Mod-Edg-Reward-Pet"
             }
           ]
         }
