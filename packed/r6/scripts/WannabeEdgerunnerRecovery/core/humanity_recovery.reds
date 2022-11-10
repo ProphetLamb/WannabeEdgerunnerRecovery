@@ -62,11 +62,6 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     this.RecoverHumanityLoop();
   }
 
-  private final func OnEnemyKnockout(affiliation: gamedataAffiliation) {
-    LTrace("OnEnemyKnockout");
-    this.KnockoutEnemy(affiliation);
-  }
-
   private final func OnPlayerCombatStateChanged(state: PlayerCombatState) {
     LTrace("OnPlayerCombatStateChanged");
     this.ChangeCombatState(state);
@@ -75,6 +70,21 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   private final func OnRecoverHumanityRequest(request: ref<RecoverHumanityRequest>) -> Void {
     LTrace("OnRecoverHumanityRequest");
     this.RecoverHumanity(request.Amount);
+  }
+
+  private final func OnEnemyKnockout(affiliation: gamedataAffiliation) {
+    LTrace("OnEnemyKnockout");
+    this.KnockoutEnemy(affiliation);
+  }
+
+  private final func OnNpcDonate() {
+    LTrace("OnNpcDonate");
+    this.RecoverHumanity(this.config.rewardDonate);
+  }
+
+  private final func OnAnimalPet() {
+    LTrace("OnAnimalPet");
+    this.RecoverHumanity(this.config.rewardPet);
   }
 
   // ------------------------------------------
@@ -263,28 +273,6 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
   }
 
   // ------------------------------------------
-  // Core logic: Enemy Knockout
-  // ------------------------------------------
-
-  private func KnockoutEnemy(affiliation: gamedataAffiliation) {
-    let reward = this.GetEnemyKnockoutReward(affiliation);
-    LInfo(s"Knocking out enemy of affiliation \(affiliation)");
-    this.RecoverHumanity(reward);
-  }
-
-  /// Returns the reward for knocking an enemy unconscious (in humanity)
-  /// Computes $$d / c ^ e$$ where $d$ is the dividend, $c$ is the kill cost, and $e$ the exponent.
-  public func GetEnemyKnockoutReward(affiliation: gamedataAffiliation) -> Int32 {
-    let dividend = this.config.enemyUnconsciousDiv;
-    let exponent = this.config.enemyUnconsciousExp;
-    if dividend <= 0.0 { return 0; }
-
-    let killCost = this.edgerunningSystem.GetEnemyCost(affiliation);
-    let reward = dividend * PowF(Cast<Float>(killCost), -exponent);
-    return Cast<Int32>(reward);
-  }
-
-  // ------------------------------------------
   // Core logic: Combat regeneration
   // ------------------------------------------
 
@@ -311,17 +299,43 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
 
   private func QueueHumanityChangedNotify(delta: Int32) {
     let humanityRed = this.GetHumanityRed();
-    let evt: ref<ProficiencyProgressEvent>;
+    let evt = new ProficiencyProgressEvent();
     evt.delta = delta;
     evt.expValue = this.GetHumanityRedPool() - humanityRed;
     evt.remainingXP = humanityRed;
     evt.currentLevel = 1;
     evt.isLevelMaxed = false;
-    evt.type = gamedataProficiencyType.Assault;
+    evt.type = gamedataProficiencyType.Level;
     evt.typeAux = 1337; // reserved for humanity
 
     LDebug(s"Queueing humanity changed event: delta = \(delta), expValue = \(evt.expValue), remainingXP = \(evt.remainingXP)");
     GameInstance.GetUISystem(this.player.GetGame()).QueueEvent(evt);
+  }
+
+  // ------------------------------------------
+  // Core logic: Enemy Knockout
+  // ------------------------------------------
+
+  private func KnockoutEnemy(affiliation: gamedataAffiliation) {
+    let reward = this.GetEnemyKnockoutReward(affiliation);
+    LInfo(s"Knocking out enemy of affiliation \(affiliation)");
+    this.RecoverHumanity(reward);
+  }
+
+  /// Returns the reward for knocking an enemy unconscious (in humanity)
+  /// Computes $$d / c ^ e$$ where $d$ is the dividend, $c$ is the kill cost, and $e$ the exponent.
+  public func GetEnemyKnockoutReward(affiliation: gamedataAffiliation) -> Int32 {
+    // No reward for knocking out a civilian
+    if Equals(affiliation, gamedataAffiliation.Unaffiliated) {
+      return 0;
+    }
+    let dividend = this.config.enemyUnconsciousDiv;
+    let exponent = this.config.enemyUnconsciousExp;
+    if dividend <= 0.0 { return 0; }
+
+    let killCost = this.edgerunningSystem.GetEnemyCost(affiliation);
+    let reward = dividend * PowF(Cast<Float>(killCost), -exponent);
+    return Cast<Int32>(reward);
   }
 }
 
