@@ -9,6 +9,8 @@ Archive containing the mod logic and locals.
 
 # Changelog
 ## v0.4.2: Bug fixes
+- Fix bug preventing knockout v2
+## v0.4.2: Bug fixes
 - Fix bug preventing knockout
 - Fix bug preventing ripperdoc screen refresh
 ## v0.4.1: Bug fixes
