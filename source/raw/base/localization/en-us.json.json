@@ -109,7 +109,7 @@
             },
             {
               "$type": "localizationPersistenceOnScreenEntry",
-              "femaleVariant": "Rewards",
+              "femaleVariant": "Humanity rewards",
               "maleVariant": "",
               "primaryKey": 0,
               "secondaryKey": "Mod-Edg-Reward"
