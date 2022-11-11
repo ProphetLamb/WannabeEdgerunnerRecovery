@@ -18,7 +18,3 @@ public struct CyberwareSlots {
 }
 
 public class LaunchCycledRecoverHumanityRequest extends ScriptableSystemRequest {}
-
-public class RecoverHumanityRequest extends ScriptableSystemRequest {
-  public let Amount: Int32;
-}

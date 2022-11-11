@@ -7,8 +7,8 @@ public let edgerunningRecoverySystem: wref<EdgerunningRecoverySystem>;
 
 @wrapMethod(RipperDocGameController)
 protected cb func OnInitialize() -> Bool {
-  wrappedMethod();
   this.edgerunningRecoverySystem = EdgerunningRecoverySystem.GetInstance(this.m_player.GetGame());
+  return wrappedMethod();
 }
 
 @wrapMethod(RipperDocGameController)

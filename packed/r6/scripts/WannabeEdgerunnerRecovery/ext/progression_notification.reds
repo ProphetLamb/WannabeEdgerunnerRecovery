@@ -8,7 +8,6 @@ protected cb func OnCharacterProficiencyUpdated(evt: ref<ProficiencyProgressEven
       this.PushXPNotification(evt.expValue, evt.remainingXP, evt.delta, n"StreetCred", GetLocalizedTextByKey(n"Mod-Edg-Humanity"), gamedataProficiencyType.Invalid, evt.currentLevel, evt.isLevelMaxed);
       break;
     default: // default behavior
-      wrappedMethod(evt);
-      break;
+      return wrappedMethod(evt);
   }
 }

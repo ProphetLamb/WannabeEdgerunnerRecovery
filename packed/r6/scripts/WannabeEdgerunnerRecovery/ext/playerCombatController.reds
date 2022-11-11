@@ -9,14 +9,11 @@ public final func OnInvalidateActiveState(evt: ref<PlayerCombatControllerInvalid
   let stateNew = evt.m_state;
   wrappedMethod(evt);
 
-  if Equals(stateOld, stateNew) {
-    return;
+  if !Equals(stateOld, stateNew) {
+    let player = this.m_owner as PlayerPuppet;
+    // ignore if not player or jonny
+    if IsDefined(player) && !player.IsPossessedE() {
+      EdgerunningRecoverySystem.GetInstance(player.GetGame()).OnPlayerCombatStateChanged(stateNew);
+    }
   }
-  let player = this.m_owner as PlayerPuppet;
-  // ignore if not player or jonny
-  if !IsDefined(player) || player.IsPossessedE() {
-    return;
-  }
-  let system = EdgerunningRecoverySystem.GetInstance(player.GetGame());
-  system.OnPlayerCombatStateChanged(stateNew);
 }

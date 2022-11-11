@@ -67,11 +67,6 @@ public class EdgerunningRecoverySystem extends ScriptableSystem {
     this.ChangeCombatState(state);
   }
 
-  private final func OnRecoverHumanityRequest(request: ref<RecoverHumanityRequest>) -> Void {
-    LTrace("OnRecoverHumanityRequest");
-    this.RecoverHumanity(request.Amount);
-  }
-
   private final func OnEnemyKnockout(affiliation: gamedataAffiliation) {
     LTrace("OnEnemyKnockout");
     this.KnockoutEnemy(affiliation);
