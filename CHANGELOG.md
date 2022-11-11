@@ -8,6 +8,8 @@ Archive containing the mod logic and locals.
 - Missing localizations
 
 # Changelog
+## v0.4.3: Bug fixes
+- Fix bug preventing knockout v2
 ## v0.4.2: Bug fixes
 - Fix bug preventing knockout
 - Fix bug preventing ripperdoc screen refresh
