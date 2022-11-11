@@ -8,6 +8,9 @@ Archive containing the mod logic and locals.
 - Missing localizations
 
 # Changelog
+## v0.4.2: Bug fixes
+- Fix bug preventing knockout
+- Fix bug preventing ripperdoc screen refresh
 ## v0.4.1: Bug fixes
 - Fix +1 humanity notification while at maximum recoverable humanity.
 - Fix aggressive timer
