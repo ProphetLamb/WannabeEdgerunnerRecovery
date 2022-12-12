@@ -3,3 +3,4 @@ localization:
     en-us: base\localization\en-us.json
     de-de: base\localization\de-de.json
     fr-fr: base\localization\fr-fr.json
+    ru-ru: base\localization\ru-ru.json
