@@ -90,7 +90,7 @@ A dividend of zero turns off recovery on knockout.
 - [ ] Add jp-jp local
 - [ ] Add pl-pl local
 - [ ] Add pt-br local
-- [ ] Add zh-cn local
+- [x] Add zh-cn local. Thanks to @FelixGMo !
 - [ ] Add zh-tw local
 - [ ] Add es-es local
 
